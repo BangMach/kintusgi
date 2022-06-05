@@ -2,16 +2,13 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speech/flutter_speech.dart';
 import 'package:highlight_text/highlight_text.dart';
-// import 'package:speech_recognition/speech_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +17,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: VoiceHome(),
-      // MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -31,9 +27,8 @@ class VoiceHome extends StatefulWidget {
 
   @override
   _VoiceHomeState createState() => _VoiceHomeState();
-    // TODO: implement createState
-    // throw UnimplementedError();
-
+  // TODO: implement createState
+  // throw UnimplementedError();
 
 }
 
@@ -41,8 +36,8 @@ class _VoiceHomeState extends State<VoiceHome> {
   SpeechRecognition _speechRecognition;
   bool _isAvailable = false; // if we are available to interact with it
   bool _isListening = false; // is the mircophone being used
-  String _currentLocale= "";
-  String resultText=  "";
+  String _currentLocale = "";
+  String resultText = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -55,58 +50,56 @@ class _VoiceHomeState extends State<VoiceHome> {
     // TODO: implement build
     return Scaffold(
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment:  CrossAxisAlignment.center,
-          children: <Widget>[Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-              FloatingActionButton(
-                  child: Icon(Icons.cancel),
-                  mini:true,
-                  backgroundColor: Colors.deepOrange,
-                  onPressed: (){
-                    if (_isListening)
-                      _speechRecognition.cancel().then(
-                            (result) => setState(() {
-                          _isListening = result;
-                          resultText = "";
-                        }),
-                      );
-                  }),
-              FloatingActionButton(
-                  child: Icon(Icons.mic),
-                  onPressed: (){
-                    if (_isAvailable && !_isListening)
-                      _speechRecognition
-                          .listen()
-                          .then((result) => print('$result'));
-                  }),
-              FloatingActionButton(
-                  child: Icon(Icons.stop),
-                  mini:true,
-                  backgroundColor: Colors.deepPurple,
-                  onPressed: (){
-                    if (_isListening)
-                      _speechRecognition.stop().then(
-                            (result) => setState(() => _isListening = result),
-                      );                  }),
-            ]
-        ),
-        Container(
-            width: MediaQuery.of(context).size.width *0.6,
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            FloatingActionButton(
+                child: Icon(Icons.cancel),
+                mini: true,
+                backgroundColor: Colors.deepOrange,
+                onPressed: () {
+                  if (_isListening)
+                    _speechRecognition.cancel().then(
+                          (result) => setState(() {
+                            _isListening = result;
+                            resultText = "";
+                          }),
+                        );
+                }),
+            FloatingActionButton(
+                child: Icon(Icons.mic),
+                onPressed: () {
+                  if (_isAvailable && !_isListening)
+                    _speechRecognition
+                        .listen()
+                        .then((result) => print('$result'));
+                }),
+            FloatingActionButton(
+                child: Icon(Icons.stop),
+                mini: true,
+                backgroundColor: Colors.deepPurple,
+                onPressed: () {
+                  if (_isListening)
+                    _speechRecognition.stop().then(
+                          (result) => setState(() => _isListening = result),
+                        );
+                }),
+          ]),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.6,
             decoration: BoxDecoration(
-              color: Colors.cyanAccent[100],
-              borderRadius: BorderRadius.circular((6.9))
-            ),
+                color: Colors.cyanAccent[100],
+                borderRadius: BorderRadius.circular((6.9))),
             padding: EdgeInsets.symmetric(
               vertical: 8.0,
               horizontal: 12.0,
             ),
-            child: Text(resultText),)
-          ],
+            child: Text(resultText),
           )
-      ),
+        ],
+      )),
     );
     // throw UnimplementedError();
   }
@@ -157,6 +150,7 @@ class _VoiceHomeState extends State<VoiceHome> {
       setState(() => _isAvailable = res);
     });
   }
+
   void initSpeechRecognizer() {
     // _speechRecognition = SpeechRecognition();
     // _speechRecognition.setAvailabilityHandler((bool result) =>setState(() => _isAvailable = result));
@@ -175,123 +169,86 @@ class _VoiceHomeState extends State<VoiceHome> {
     // _speechRecognition.setCurrentLocaleHandler((String locale) =>
     //     setState(() => _currentLocale = locale));
   }
-
-
 }
 
-
-class SpeechScreen extends StatefulWidget{
+class SpeechScreen extends StatefulWidget {
   @override
   _SpeechScreenState createState() => _SpeechScreenState();
-
 }
 
-class _SpeechScreenState extends State<SpeechScreen>{
+class _SpeechScreenState extends State<SpeechScreen> {
   final Map<String, HighlightedWord> _highlights = {
     'flutter': HighlightedWord(
       onTap: () => print('flutter'),
       textStyle: const TextStyle(
         color: Colors.blue,
-        fontWeight:  FontWeight.bold,
-    ),
+        fontWeight: FontWeight.bold,
+      ),
     ),
     'like': HighlightedWord(
       onTap: () => print('subcribe'),
       textStyle: const TextStyle(
         color: Colors.red,
-        fontWeight:  FontWeight.bold,
+        fontWeight: FontWeight.bold,
       ),
     ),
     'accessibility': HighlightedWord(
       onTap: () => print('accessibility'),
       textStyle: const TextStyle(
         color: Colors.green,
-        fontWeight:  FontWeight.bold,
+        fontWeight: FontWeight.bold,
       ),
     ),
   };
 
-  stt.SpeechToText _speech;
   bool _isListening = false;
   String _text = "Press the button and start speaking";
   double _cofidence = 1.0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _speech = stt.SpeechToText();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Confidence Level is: ${(_cofidence*100.0).toStringAsFixed(1)}%"),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-       animate: _isListening,
-        glowColor: Theme.of(context).primaryColor,
-        endRadius: 75.0,
-        duration: const Duration(milliseconds: 2000),
-        repeat: true,
-        child: FloatingActionButton(
-          onPressed:_listen,
-          child: Icon(_isListening ? Icons.mic: Icons.mic_none)
-        )
-    ),
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
-          child: GestureDetector(
-            onDoubleTap: (){
-              print("double press clicked");
-
-            },
-            child:Text(
-              _text
-            // words: _highlights,
-            // textStyle: const TextStyle(
-            //   fontSize: 32.0,
-            //   color: Colors.black,
-            //   fontWeight: FontWeight.w400,
-          )
-
-            ,
-          )
-
-          )
-        )
-      );
+        appBar: AppBar(
+          title: Text(
+              "Confidence Level is: ${(_cofidence * 100.0).toStringAsFixed(1)}%"),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: AvatarGlow(
+          animate: _isListening,
+          glowColor: Theme.of(context).primaryColor,
+          endRadius: 75.0,
+          duration: const Duration(milliseconds: 2000),
+          repeat: true,
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+          ),
+        ),
+        body: SingleChildScrollView(
+            reverse: true,
+            child: Container(
+                padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
+                child: GestureDetector(
+                  onDoubleTap: () {
+                    print("double press clicked");
+                  },
+                  child: Text(_text
+                      // words: _highlights,
+                      // textStyle: const TextStyle(
+                      //   fontSize: 32.0,
+                      //   color: Colors.black,
+                      //   fontWeight: FontWeight.w400,
+                      ),
+                ))));
 
     // throw UnimplementedError();
-  }
-
-
-  void _listen() async {
-    if (!_isListening) {
-      bool available = await _speech.initialize(
-        onStatus: (val) => print('onStatus $val'),
-        onError: (val) => print('onError: $val'),
-      );
-      if (available) {
-        setState(() => _isListening = true);
-        _speech.listen(
-          onResult: (val) =>
-              setState(() {
-                _text = val.recognizedWords;
-                if (val.hasConfidenceRating && val.confidence > 0) {
-                  _cofidence = val.confidence;
-                }
-              }),
-        );
-      }
-    } else {
-      setState(() => _isListening = false);
-      _speech.stop();
-    }
   }
 }
 

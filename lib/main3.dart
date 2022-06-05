@@ -2,7 +2,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/flashcard.dart';
 import 'package:kintsugi/flashcard_view.dart';
-import 'package:flutter/services.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,7 +12,6 @@ class MyApp extends StatefulWidget {
   State<StatefulWidget> createState() => _MyAppState();
 }
 
-
 class _MyAppState extends State<MyApp> {
   List<Flashcard> _flashcards = [
     Flashcard(
@@ -20,8 +19,7 @@ class _MyAppState extends State<MyApp> {
         answer: "Là sự thô bạo,tàn ác của cuộc sống"),
     Flashcard(question: "Temperment", answer: "Emotional State of  mind !"),
     Flashcard(
-        question: "Who teaches you how to write sexy code?",
-        answer: "lo mao!")
+        question: "Who teaches you how to write sexy code?", answer: "lo mao!")
   ];
 
   int _currentIndex = 0;
@@ -48,12 +46,12 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   // ignore: deprecated_member_use
-                  OutlineButton.icon(
+                  OutlinedButton.icon(
                       onPressed: showPreviousCard,
                       icon: Icon(Icons.chevron_left),
                       label: Text('Prev')),
                   // ignore: deprecated_member_use
-                  OutlineButton.icon(
+                  OutlinedButton.icon(
                       onPressed: showNextCard,
                       icon: Icon(Icons.chevron_right),
                       label: Text('Next')),
@@ -69,14 +67,14 @@ class _MyAppState extends State<MyApp> {
   void showNextCard() {
     setState(() {
       _currentIndex =
-      (_currentIndex + 1 < _flashcards.length) ? _currentIndex + 1 : 0;
+          (_currentIndex + 1 < _flashcards.length) ? _currentIndex + 1 : 0;
     });
   }
 
   void showPreviousCard() {
     setState(() {
       _currentIndex =
-      (_currentIndex - 1 >= 0) ? _currentIndex - 1 : _flashcards.length - 1;
+          (_currentIndex - 1 >= 0) ? _currentIndex - 1 : _flashcards.length - 1;
     });
   }
 }
