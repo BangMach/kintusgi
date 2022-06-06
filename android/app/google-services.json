@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "933872441863",
+    "project_id": "accesstant",
+    "storage_bucket": "accesstant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933872441863:android:0243e22c1517482c4828a2",
+        "android_client_info": {
+          "package_name": "com.example.kintsugi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933872441863-r43ga241igllhvtkp8mtvfgr6lhglmk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhd9YJvCGkmH8mslUMj_ayGEcxeRPDIyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933872441863-r43ga241igllhvtkp8mtvfgr6lhglmk4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
