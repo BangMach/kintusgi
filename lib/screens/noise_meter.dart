@@ -1,9 +1,6 @@
-// https://github.com/syncfusion/flutter-examples/blob/master/lib/samples/chart/dynamic_updates/live_update/real_time_line_chart.dart
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:noise_meter/noise_meter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +24,6 @@ class _NoiseAppState extends State<NoiseApp> {
   @override
   void initState() {
     super.initState();
-
   }
 
   void onData(NoiseReading noiseReading) {
@@ -75,11 +71,10 @@ class _NoiseAppState extends State<NoiseApp> {
   }
 
   void copyValue(
-      bool theme,
-      ) {
+    bool theme,
+  ) {
     Clipboard.setData(
-      ClipboardData(
-          text: 'It\'s about ${maxDB.toStringAsFixed(1)}dB loudness'),
+      ClipboardData(text: 'It\'s about ${maxDB.toStringAsFixed(1)}dB loudness'),
     ).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -150,7 +145,7 @@ class _NoiseAppState extends State<NoiseApp> {
               child: Center(
                 child: Text(
                   maxDB != null ? maxDB.toStringAsFixed(2) : 'Press start',
-                  style: TextStyle(color: Colors.white,fontSize: 76),
+                  style: TextStyle(color: Colors.white, fontSize: 76),
                 ),
               ),
             ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../main2.dart';
-
 class FormValidation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -20,39 +18,42 @@ class FormVadidationState extends State<FormValidation> {
         }
         return null;
       },
+      // onSaved: (value) {
+      //   _name =;
+      // },
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Enter your username',
+        labelText: 'Tên Đăng Nhập',
       ),
     );
   }
 
-  Widget _buildEmail() {
+  Widget _buildPassword() {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Email is require';
+          return 'Password is require';
         }
         return null;
       },
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Enter your email',
+        labelText: 'Nhập mật khẩu',
       ),
     );
   }
 
-  Widget _buildText() {
+  Widget _buildPasswordAgain() {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Job is require';
+          return 'Password is require';
         }
         return null;
       },
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Enter your Job',
+        labelText: 'Xác nhận mật Khẩu',
       ),
     );
   }
@@ -69,21 +70,21 @@ class FormVadidationState extends State<FormValidation> {
             children: <Widget>[
               _buildName(),
               const SizedBox(height: 50),
-              _buildEmail(),
+              _buildPassword(),
               const SizedBox(height: 50),
-              _buildText(),
+              _buildPasswordAgain(),
               const SizedBox(
                 height: 50,
               ),
               ElevatedButton(
                 onPressed: () => {
-
-                  Navigator.push(_formKey.currentContext, MaterialPageRoute(builder: (context){
+                  Navigator.push(_formKey.currentContext,
+                      MaterialPageRoute(builder: (context) {
                     return MyApp();
                   }))
                 },
                 child: const Text(
-                  "NextPage",
+                  "Submit",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26,

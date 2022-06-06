@@ -2,7 +2,6 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speech/flutter_speech.dart';
 import 'package:highlight_text/highlight_text.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
@@ -7,7 +6,7 @@ import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 class RecorderView extends StatefulWidget {
   final Function onSaved;
 
-  const RecorderView({ key,  this.onSaved}) : super(key: key);
+  const RecorderView({key, this.onSaved}) : super(key: key);
   @override
   _RecorderViewState createState() => _RecorderViewState();
 }
@@ -25,7 +24,7 @@ class _RecorderViewState extends State<RecorderView> {
   RecordingState _recordingState = RecordingState.UnSet;
 
   // Recorder properties
-   FlutterAudioRecorder2 audioRecorder;
+  FlutterAudioRecorder2 audioRecorder;
 
   @override
   void initState() {
@@ -81,7 +80,7 @@ class _RecorderViewState extends State<RecorderView> {
   Future<void> _onRecordButtonPressed() async {
     switch (_recordingState) {
       case RecordingState.Set:
-      break;
+        break;
 
       case RecordingState.Recording:
         await _stopRecording();
@@ -99,11 +98,11 @@ class _RecorderViewState extends State<RecorderView> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Please allow recording from settings.'),
         ));
-        // await _stopRecording();
-        // _recordingState = RecordingState.Stopped;
-        // _recordIcon = Icons.fiber_manual_record;
-        // _recordText = 'Record new one';
-        // break;
+      // await _stopRecording();
+      // _recordingState = RecordingState.Stopped;
+      // _recordIcon = Icons.fiber_manual_record;
+      // _recordText = 'Record new one';
+      // break;
     }
   }
 
@@ -134,7 +133,7 @@ class _RecorderViewState extends State<RecorderView> {
     final directory = await getApplicationDocumentsDirectory();
     final file = File(directory.path);
     final isExists = await file.exists();
-    if(isExists){
+    if (isExists) {
       await file.delete(recursive: true);
     }
 

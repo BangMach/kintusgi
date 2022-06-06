@@ -1,7 +1,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:kintsugi/flashcard.dart';
-import 'package:kintsugi/flashcard_view.dart';
+import 'package:kintsugi/widgets/flashcards/flashcard.dart';
+import 'package:kintsugi/widgets/flashcards/flashcard_view.dart';
 
 void main() {
   runApp(MyApp());
