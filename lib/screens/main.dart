@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kintsugi/views/register.dart';
-
-import '../main2.dart';
+import 'package:kintsugi/widgets/forms/validation_form.dart';
 
 void main() {
   runApp(const ButtonApp());
@@ -79,12 +77,12 @@ class ButtonTypesGroup extends StatelessWidget {
           Text(
             "Tình Trạng của bạn là gì",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                // height: 4,
-                fontWeight: FontWeight.w400),
+              color: Colors.black,
+              fontSize: 24,
+              // height: 4,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-
           SizedBox(
             width: 300.0, // <-- match_parent
             height: 50, // <
@@ -97,7 +95,10 @@ class ButtonTypesGroup extends StatelessWidget {
               },
               child: const Text(
                 'Khiếm thị',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
               ),
             ),
           ),
@@ -105,171 +106,84 @@ class ButtonTypesGroup extends StatelessWidget {
             width: 300.0, // <-- match_parent
             height: 50, // <
             child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(_LogInState.currentContext,
-                      MaterialPageRoute(builder: (context) {
-                    return FormValidation();
-                  }));
-                },
-                child: const Text('Khiếm thính',
-                    style: TextStyle(color: Colors.black, fontSize: 20))),
+              onPressed: () {
+                Navigator.push(_LogInState.currentContext,
+                    MaterialPageRoute(builder: (context) {
+                  return FormValidation();
+                }));
+              },
+              child: const Text(
+                'Khiếm thính',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
           SizedBox(
             width: 300.0, // <-- match_parent
             height: 50, // <
             child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(_LogInState.currentContext,
-                      MaterialPageRoute(builder: (context) {
-                    return FormValidation();
-                  }));
-                },
-                child: const Text('Rối loạn tăng động, giảm chú ý',
-                    style: TextStyle(color: Colors.black, fontSize: 20))),
+              onPressed: () {
+                Navigator.push(
+                  _LogInState.currentContext,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return FormValidation();
+                    },
+                  ),
+                );
+              },
+              child: const Text(
+                'Rối loạn tăng động, giảm chú ý',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
           SizedBox(
             width: 300.0, // <-- match_parent
             height: 50, // <
             child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(_LogInState.currentContext,
-                      MaterialPageRoute(builder: (context) {
-                    return FormValidation();
-                  }));
-                },
-                child: const Text('Chứng khó đọc (đang phát triển',
-                    style: TextStyle(color: Colors.black, fontSize: 20))),
+              onPressed: () {
+                Navigator.push(_LogInState.currentContext,
+                    MaterialPageRoute(builder: (context) {
+                  return FormValidation();
+                }));
+              },
+              child: const Text(
+                'Chứng khó đọc (đang phát triển',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
           SizedBox(
             width: 300.0, // <-- match_parent
             height: 50, //
             child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(_LogInState.currentContext,
-                      MaterialPageRoute(builder: (context) {
-                    return FormValidation();
-                  }));
-                },
-                child: const Text('Không có khiếm khuyết',
-                    style: TextStyle(color: Colors.black, fontSize: 20))),
+              onPressed: () {
+                Navigator.push(_LogInState.currentContext,
+                    MaterialPageRoute(builder: (context) {
+                  return FormValidation();
+                }));
+              },
+              child: const Text(
+                'Không có khiếm khuyết',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
-
-          // // Use an ElevatedButton with specific style to implement the
-          // // 'Filled' type.
-          // OutlinedButton(
-          //   style: ElevatedButton.styleFrom(
-          //     // Foreground color
-          //     onPrimary: Theme.of(context).colorScheme.onPrimary,
-          //     // Background color
-          //     primary: Theme.of(context).colorScheme.primary,
-          //   ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-          //   onPressed: onPressed,
-          //   child: const Text('Khiếm thính'),
-          // ),
-
-          // // Use an ElevatedButton with specific style to implement the
-          // // 'Filled Tonal' type.
-          // ElevatedButton(
-          //   style: ElevatedButton.styleFrom(
-          //     // Foreground color
-          //     onPrimary: Theme.of(context).colorScheme.onSecondaryContainer,
-          //     // Background color
-          //     primary: Theme.of(context).colorScheme.secondaryContainer,
-          //   ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-          //   onPressed: onPressed,
-          //   child: const Text('Rối loạn tăng động, giảm chú ý '),
-          // ),
-
-          // OutlinedButton(
-          //     onPressed: onPressed,
-          //     child: const Text('Chứng khó đọc (đang phát triển) ')),
-
-          // OutlinedButton(
-          //     onPressed: onPressed, child: const Text('Không có khuyết điểm')),
         ],
       ),
     );
   }
 }
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     const appTitle = "Tạo Tài Khoản";
-//     return MaterialApp(
-//       title: appTitle,
-//       theme: ThemeData(colorSchemeSeed: const Color(0xff6750a4)),
-//       home:
-//           // FormValidation(),
-//           const Scaffold(
-//         body: MyHomePage(),
-//       ),
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatelessWidget {
-//   const MyHomePage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(132.0),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: const <Widget>[
-//           Spacer(),
-//           ButtonTypesGroup(enabled: true),
-//           ButtonTypesGroup(enabled: false),
-//           Spacer(),
-//           Text(
-//             "Tạo Tài Khoản",
-//             style: TextStyle(color: Colors.yellow, fontSize: 32, height: 2),
-//           ),
-//           Text(
-//             "Tình Trang của bạn là gì",
-//             style: TextStyle(
-//                 color: Colors.black,
-//                 fontSize: 24,
-//                 height: 4,
-//                 fontWeight: FontWeight.w400),
-//           ),
-
-         
-//         ],
-//       ),
-    
-//     );
-//   }
-// }
-
-// class ButtonTypesGroup extends StatelessWidget {
-//   const ButtonTypesGroup({Key? key, required this.enabled}) : super(key: key);
-// }
-//       // ElevatedButton(
-//       //       onPressed: null,
-//       //       child: Text("Khiem Thi"),
-//       //       style: ButtonStyle(),
-//       //     ),
-//       //     ElevatedButton(
-//       //       onPressed: null,
-//       //       child: Text("Khiem Thính"),
-//       //       style: ButtonStyle(),
-//       //     ),
-//       //     ElevatedButton(
-//       //       onPressed: null,
-//       //       child: Text("Rối loạn tăng động khó chú ý"),
-//       //       style: ButtonStyle(),
-//       //     ),
-//       //     ElevatedButton(
-//       //       onPressed: null,
-//       //       child: Text("Chứng khó đọc (đang phát triển)"),
-//       //       style: ButtonStyle(),
-//       //     ),
-//       //     ElevatedButton(
-//       //       onPressed: null,
-//       //       child: Text("Bình Thường"),
-//       //       style: ButtonStyle(),
-//       //     ),

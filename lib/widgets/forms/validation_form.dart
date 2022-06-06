@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main2.dart';
+import 'package:kintsugi/old/main2.dart';
 
 class FormValidation extends StatefulWidget {
   @override
