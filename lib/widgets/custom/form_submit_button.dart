@@ -27,7 +27,7 @@ class FormSubmitButton extends CustomElevatedButton {
                 child: Opacity(
                   opacity: isLoading ? 1.0 : 0.0,
                   child: CircularProgressIndicator(
-                    color: Colors.white,
+                    backgroundColor: Colors.white,
                   ),
                 ),
               ),

@@ -309,7 +309,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         subtitle: Text('In development'),
                         trailing: Icon(
-                          Icons.auto_fix_high_outlined,
+                          Icons.warning,
                           color: Colors.indigo,
                           size: 30.0,
                         ),

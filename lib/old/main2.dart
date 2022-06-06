@@ -76,11 +76,11 @@ class MyApp extends StatelessWidget {
                         Navigator.push(
                             _scaffoldState.currentContext ?? "default values",
                             MaterialPageRoute(builder: (context) {
-                          return VoiceHome();
+                          return Flashcard();
                         }));
                       },
                       child: Text(
-                        "Flash " ?? "default values",
+                        "Flash Cards " ?? "default values",
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
                         }));
                       },
                       child: Text(
-                        "lờ mao" ?? "default values",
+                        "Reminder" ?? "default values",
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
