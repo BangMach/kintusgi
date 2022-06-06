@@ -46,12 +46,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final currentUser = Provider.of<AuthBase>(context).currentUser;
-    final accessibilityMode = Provider.of<AuthBase>(context).accessibilityMode;
+    final accessibilityModes =
+        Provider.of<AuthBase>(context).accessibilityModes;
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Settings'),
+        backgroundColor: Colors.indigo,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -68,6 +70,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Row(
                       children: <Widget>[
                         CircleAvatar(
+                          backgroundImage: currentUser.photoURL != null
+                              ? NetworkImage(
+                                  currentUser.photoURL,
+                                )
+                              : NetworkImage(
+                                  'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'),
                           radius: 40,
                         ),
                         const SizedBox(width: 16),
@@ -84,17 +92,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               Row(
                                 children: <Widget>[
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      child: Text('Edit profile'),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
+                                  // Expanded(
+                                  //   child: ElevatedButton(
+                                  //     child: Text('Edit profile'),
+                                  //     onPressed: () {},
+                                  //     style: ButtonStyle(
+                                  //       backgroundColor:
+                                  //           MaterialStateProperty.all(
+                                  //         Colors.indigo,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // const SizedBox(width: 8),
                                   Expanded(
                                     child: ElevatedButton(
                                       child: Text('Logout'),
                                       onPressed: () => _confirmSignOut(context),
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                          Colors.indigo,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -127,23 +147,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailing: Icon(Icons.keyboard_arrow_right),
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        'Theme',
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                      subtitle: Text('Light'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                    ),
-                  ),
+                  // Card(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(4.0),
+                  //     side: BorderSide(
+                  //       color: Colors.grey,
+                  //       width: 1.0,
+                  //     ),
+                  //   ),
+                  //   child: ListTile(
+                  //     title: Text(
+                  //       'Theme',
+                  //       style: Theme.of(context).textTheme.button,
+                  //     ),
+                  //     subtitle: Text('Light'),
+                  //     trailing: Icon(Icons.keyboard_arrow_right),
+                  //   ),
+                  // ),
                   Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
@@ -175,7 +195,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        side: accessibilityMode == AccessibilityMode.VISUAL
+                        side: accessibilityModes
+                                .contains(AccessibilityMode.VISUAL)
                             ? BorderSide(
                                 color: Colors.indigo,
                                 width: 2.0,
@@ -192,7 +213,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         subtitle:
                             Text('Adjust experiences for visually impaired'),
-                        trailing: accessibilityMode == AccessibilityMode.VISUAL
+                        trailing: accessibilityModes
+                                .contains(AccessibilityMode.VISUAL)
                             ? Icon(
                                 Icons.check_box,
                                 color: Colors.green,
@@ -214,7 +236,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        side: accessibilityMode == AccessibilityMode.HEARING
+                        side: accessibilityModes
+                                .contains(AccessibilityMode.HEARING)
                             ? BorderSide(
                                 color: Colors.indigo,
                                 width: 2.0,
@@ -232,7 +255,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         subtitle: Text(
                           'Adjust experiences for hearing impaired',
                         ),
-                        trailing: accessibilityMode == AccessibilityMode.HEARING
+                        trailing: accessibilityModes
+                                .contains(AccessibilityMode.HEARING)
                             ? Icon(
                                 Icons.check_box,
                                 color: Colors.green,
@@ -254,15 +278,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        side: accessibilityMode == AccessibilityMode.ADHD
-                            ? BorderSide(
-                                color: Colors.indigo,
-                                width: 2.0,
-                              )
-                            : BorderSide(
-                                color: Colors.grey,
-                                width: 1.0,
-                              ),
+                        side:
+                            accessibilityModes.contains(AccessibilityMode.ADHD)
+                                ? BorderSide(
+                                    color: Colors.indigo,
+                                    width: 2.0,
+                                  )
+                                : BorderSide(
+                                    color: Colors.grey,
+                                    width: 1.0,
+                                  ),
                       ),
                       child: ListTile(
                         title: Text(
@@ -270,17 +295,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text('Adjust experiences for ADHD users'),
-                        trailing: accessibilityMode == AccessibilityMode.ADHD
-                            ? Icon(
-                                Icons.check_box,
-                                color: Colors.green,
-                                size: 30.0,
-                              )
-                            : Icon(
-                                Icons.check_box_outline_blank_rounded,
-                                color: Colors.grey,
-                                size: 30.0,
-                              ),
+                        trailing:
+                            accessibilityModes.contains(AccessibilityMode.ADHD)
+                                ? Icon(
+                                    Icons.check_box,
+                                    color: Colors.green,
+                                    size: 30.0,
+                                  )
+                                : Icon(
+                                    Icons.check_box_outline_blank_rounded,
+                                    color: Colors.grey,
+                                    size: 30.0,
+                                  ),
                       ),
                     ),
                   ),
@@ -292,14 +318,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        side: accessibilityMode == AccessibilityMode.DYSLEXIA
+                        side: accessibilityModes
+                                .contains(AccessibilityMode.DYSLEXIA)
                             ? BorderSide(
                                 color: Colors.indigo,
                                 width: 2.0,
                               )
                             : BorderSide(
-                                color: Colors.grey,
-                                width: 1.0,
+                                color: Colors.orangeAccent,
+                                width: 2.0,
                               ),
                       ),
                       child: ListTile(
@@ -307,10 +334,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           'Dyslexia',
                           style: Theme.of(context).textTheme.button,
                         ),
-                        subtitle: Text('In development'),
+                        subtitle: Text(
+                          'In development',
+                          style: TextStyle(
+                            color: Colors.orange[700],
+                          ),
+                        ),
                         trailing: Icon(
                           Icons.warning,
-                          color: Colors.indigo,
+                          color: Colors.orangeAccent,
                           size: 30.0,
                         ),
                       ),
@@ -346,13 +378,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         width: 1.0,
                       ),
                     ),
-                    child: ListTile(
-                      title: Text(
-                        'Premium',
-                        style: Theme.of(context).textTheme.button,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: ListTile(
+                        title: Text(
+                          'Premium',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Text(
+                            'Unlimited access for one assistant, and limited access to all other assistants'),
                       ),
-                      subtitle: Text(
-                          'Unlimited access for one assistant, and limited access to all other assistants'),
                     ),
                   ),
                   Card(

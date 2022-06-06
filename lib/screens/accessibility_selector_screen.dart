@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kintsugi/widgets/forms/validation_form.dart';
+import 'package:kintsugi/screens/voice_recognizer_screen.dart';
 
 class AccessibilitySelector extends StatelessWidget {
   const AccessibilitySelector({Key key}) : super(key: key);
@@ -7,6 +7,11 @@ class AccessibilitySelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Accessibility Selector'),
+        backgroundColor: Colors.indigo,
+      ),
       body: ButtonTypesExample(),
     );
   }
@@ -23,7 +28,6 @@ class ButtonTypesExample extends StatelessWidget {
         children: const <Widget>[
           Spacer(),
           ButtonTypesGroup(enabled: true),
-          //ButtonTypesGroup(enabled: false),
           Spacer(),
         ],
       ),
@@ -38,59 +42,75 @@ class ButtonTypesGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey _LogInState = GlobalKey();
-
-    final VoidCallback onPressed = enabled ? () {} : null;
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
-        key: _LogInState,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "Tình Trạng của bạn là gì",
+            "What\'s your condition?",
             style: TextStyle(
               color: Colors.black,
               fontSize: 24,
               // height: 4,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
-            width: 300.0, // <-- match_parent
-            height: 50, // <
+            width: 300.0,
+            height: 50,
             child: OutlinedButton(
               onPressed: () {
-                Navigator.push(_LogInState.currentContext,
-                    MaterialPageRoute(builder: (context) {
-                  return FormValidation();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VoiceRecognizer();
                 }));
               },
               child: const Text(
-                'Khiếm thị',
+                'Visual Impairment',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.indigo,
                   fontSize: 20,
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    side: BorderSide(
+                      color: Colors.indigo,
+                      width: 2,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
           SizedBox(
-            width: 300.0, // <-- match_parent
-            height: 50, // <
+            width: 300.0,
+            height: 50,
             child: OutlinedButton(
               onPressed: () {
-                Navigator.push(_LogInState.currentContext,
-                    MaterialPageRoute(builder: (context) {
-                  return FormValidation();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VoiceRecognizer();
                 }));
               },
               child: const Text(
-                'Khiếm thính',
+                'Hearing Impairment',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.indigo,
                   fontSize: 20,
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    side: BorderSide(
+                      color: Colors.indigo,
+                      width: 2,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -101,57 +121,88 @@ class ButtonTypesGroup extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {
                 Navigator.push(
-                  _LogInState.currentContext,
+                  context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return FormValidation();
+                      return VoiceRecognizer();
                     },
                   ),
                 );
               },
               child: const Text(
-                'Rối loạn tăng động, giảm chú ý',
+                'ADHD',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.indigo,
                   fontSize: 20,
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    side: BorderSide(
+                      color: Colors.indigo,
+                      width: 2,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
           SizedBox(
-            width: 300.0, // <-- match_parent
-            height: 50, // <
+            width: 300.0,
+            height: 50,
             child: OutlinedButton(
               onPressed: () {
-                Navigator.push(_LogInState.currentContext,
-                    MaterialPageRoute(builder: (context) {
-                  return FormValidation();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VoiceRecognizer();
                 }));
               },
               child: const Text(
-                'Chứng khó đọc (đang phát triển',
+                'Dyslexia',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.indigo,
                   fontSize: 20,
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    side: BorderSide(
+                      color: Colors.indigo,
+                      width: 2,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
           SizedBox(
-            width: 300.0, // <-- match_parent
-            height: 50, //
+            width: 300.0,
+            height: 50,
             child: OutlinedButton(
               onPressed: () {
-                Navigator.push(_LogInState.currentContext,
-                    MaterialPageRoute(builder: (context) {
-                  return FormValidation();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VoiceRecognizer();
                 }));
               },
               child: const Text(
-                'Không có khiếm khuyết',
+                'None of the above',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.indigo,
                   fontSize: 20,
+                ),
+              ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    side: BorderSide(
+                      color: Colors.indigo,
+                      width: 2,
+                    ),
+                  ),
                 ),
               ),
             ),

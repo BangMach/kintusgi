@@ -4,7 +4,7 @@ import 'package:kintsugi/services/user_preferences.dart';
 
 abstract class AuthBase {
   User get currentUser;
-  AccessibilityMode get accessibilityMode;
+  List<AccessibilityMode> get accessibilityModes;
 
   void setAccessibilityMode(AccessibilityMode mode);
 
@@ -24,18 +24,25 @@ abstract class AuthBase {
 
 class Auth implements AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
-  AccessibilityMode _accessibilityMode = AccessibilityMode.NONE;
+  List<AccessibilityMode> _accessibilityModes = [];
 
   @override
   User get currentUser => _firebaseAuth.currentUser;
 
   @override
-  AccessibilityMode get accessibilityMode => _accessibilityMode;
+  List<AccessibilityMode> get accessibilityModes => _accessibilityModes;
 
   @override
   void setAccessibilityMode(AccessibilityMode mode) {
-    // Filter out invalid modes & Dyslexia
-    if (mode != AccessibilityMode.DYSLEXIA) _accessibilityMode = mode;
+    if (mode != AccessibilityMode.DYSLEXIA) {
+      // If it does not yet exist, add it to the list
+      if (!_accessibilityModes.contains(mode)) {
+        _accessibilityModes.add(mode);
+      } else {
+        // If it already exists, remove it from the list
+        _accessibilityModes.remove(mode);
+      }
+    }
   }
 
   @override

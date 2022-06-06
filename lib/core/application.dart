@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:kintsugi/l10n/l10n.dart';
 import 'package:kintsugi/screens/core/landing_screen.dart';
 import 'package:kintsugi/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +17,11 @@ class Application extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Colors.indigo,
+          primaryColor: Color.fromRGBO(255, 210, 51, 1),
           colorScheme:
-              ColorScheme.fromSwatch().copyWith(secondary: Colors.indigoAccent),
+              ColorScheme.fromSwatch().copyWith(secondary: Colors.indigo),
         ),
+        supportedLocales: L10n.all,
         home: LandingScreen(),
       ),
     );

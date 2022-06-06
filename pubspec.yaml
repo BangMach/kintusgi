@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
   provider:
   firebase_core:
@@ -21,23 +24,25 @@ dependencies:
   flutter_audio_recorder2: ^0.0.2
   path_provider: ^1.5.1
   flip_card: ^0.4.4
-  noise_meter: ^3.0.0
-  syncfusion_flutter_charts: ^19.1.67
   url_launcher: ^6.0.6
   flutter_speech: ^2.0.0
-  #  permission_handler: ^7.0.0
+  permission_handler:
   #  flutter_sound_lite: ^8.1.9
   #  audio_streamer: ^1.1.6
   #  audioplayers:  ^0.16.0
-  #  google_fonts: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.2
 
-  # build_runner: ^2.1.11
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/core/logo.png"
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/core/

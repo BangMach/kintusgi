@@ -1,0 +1,6 @@
+{
+    "language": "Tiếng Việt",
+    "@language": {
+        "description": "The current language of the application."
+    }
+}
