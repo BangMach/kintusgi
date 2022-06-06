@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/core/cupertino_home_scaffold.dart';
 import 'package:kintsugi/models/tab_item.dart';
-import 'package:kintsugi/screens/home_screen.dart';
-import 'package:kintsugi/screens/settings_screen.dart';
+import 'package:kintsugi/screens/home/home_screen.dart';
+import 'package:kintsugi/screens/settings/settings_screen.dart';
 
 class NavigationWrapper extends StatefulWidget {
   @override

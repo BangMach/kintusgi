@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/core/constants.dart';
+import 'package:kintsugi/services/auth.dart';
+import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
 import 'package:kintsugi/widgets/settings/settings_group.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key key}) : super(key: key);
-  final isLoggedIn = false;
+
+  Future<void> _signOut(BuildContext context) async {
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    try {
+      await auth.signOut();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _confirmSignOut(BuildContext context) async {
+    final bool didRequestSignOut = await showAlertDialog(
+      context,
+      title: 'Confirmation',
+      content: 'Are you sure you want to logout?',
+      defaultActionText: 'Logout',
+      cancelActionText: 'Cancel',
+    );
+    if (didRequestSignOut == true) {
+      _signOut(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = Provider.of<AuthBase>(context).currentUser;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,7 +62,7 @@ class SettingsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                isLoggedIn ? 'John Doe' : 'Guest',
+                                currentUser.email,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -45,27 +71,17 @@ class SettingsScreen extends StatelessWidget {
                               Row(
                                 children: <Widget>[
                                   Expanded(
-                                    child: isLoggedIn
-                                        ? ElevatedButton(
-                                            child: Text('Edit profile'),
-                                            onPressed: () {},
-                                          )
-                                        : ElevatedButton(
-                                            child: Text('Login'),
-                                            onPressed: () {},
-                                          ),
+                                    child: ElevatedButton(
+                                      child: Text('Edit profile'),
+                                      onPressed: () {},
+                                    ),
                                   ),
                                   const SizedBox(width: 8),
                                   Expanded(
-                                    child: isLoggedIn
-                                        ? ElevatedButton(
-                                            child: Text('Logout'),
-                                            onPressed: () {},
-                                          )
-                                        : ElevatedButton(
-                                            child: Text('Register'),
-                                            onPressed: () {},
-                                          ),
+                                    child: ElevatedButton(
+                                      child: Text('Logout'),
+                                      onPressed: () => _confirmSignOut(context),
+                                    ),
                                   ),
                                 ],
                               ),
