@@ -33,30 +33,34 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                  width: 250,
-                  height: 250,
-                  child: FlipCard(
-                      front: FlashcardView(
-                        text: _flashcards[_currentIndex].question,
-                      ),
-                      back: FlashcardView(
-                        text: _flashcards[_currentIndex].answer,
-                      ))),
+                width: 250,
+                height: 250,
+                child: FlipCard(
+                  front: FlashcardView(
+                    text: _flashcards[_currentIndex].question,
+                  ),
+                  back: FlashcardView(
+                    text: _flashcards[_currentIndex].answer,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   // ignore: deprecated_member_use
                   OutlinedButton.icon(
-                      onPressed: showPreviousCard,
-                      icon: Icon(Icons.chevron_left),
-                      label: Text('Prev')),
+                    onPressed: showPreviousCard,
+                    icon: Icon(Icons.chevron_left),
+                    label: Text('Prev'),
+                  ),
                   // ignore: deprecated_member_use
                   OutlinedButton.icon(
-                      onPressed: showNextCard,
-                      icon: Icon(Icons.chevron_right),
-                      label: Text('Next')),
+                    onPressed: showNextCard,
+                    icon: Icon(Icons.chevron_right),
+                    label: Text('Next'),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

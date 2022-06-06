@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/core/cupertino_home_scaffold.dart';
 import 'package:kintsugi/models/tab_item.dart';
-import 'package:kintsugi/screens/home/home_screen.dart';
+import 'package:kintsugi/screens/accessibility_selector_screen.dart';
 import 'package:kintsugi/screens/settings/settings_screen.dart';
 
 class NavigationWrapper extends StatefulWidget {
@@ -20,7 +20,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
-      TabItem.home: (_) => HomeScreen(),
+      TabItem.home: (_) => AccessibilitySelector(),
       TabItem.settings: (_) => SettingsScreen(),
     };
   }

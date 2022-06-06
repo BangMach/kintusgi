@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/widgets/forms/validation_form.dart';
 
-void main() {
-  runApp(const ButtonApp());
-}
-
-class ButtonApp extends StatelessWidget {
-  const ButtonApp({Key key}) : super(key: key);
+class AccessibilitySelector extends StatelessWidget {
+  const AccessibilitySelector({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-        // title: 'Button Types',
-      ),
-      home: const Scaffold(
-        body: ButtonTypesExample(),
-      ),
+    return Scaffold(
+      body: ButtonTypesExample(),
     );
   }
 }
@@ -58,22 +48,6 @@ class ButtonTypesGroup extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Card(
-            elevation: 5.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-              child: Text(
-                "Tạo Tài Khoản",
-                style: TextStyle(
-                    color: Color.fromRGBO(255, 210, 51, 1),
-                    fontSize: 32,
-                    height: 2),
-              ),
-            ),
-          ),
           Text(
             "Tình Trạng của bạn là gì",
             style: TextStyle(

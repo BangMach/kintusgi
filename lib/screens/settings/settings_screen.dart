@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/core/constants.dart';
 import 'package:kintsugi/services/auth.dart';
+import 'package:kintsugi/services/user_preferences.dart';
 import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
 import 'package:kintsugi/widgets/settings/settings_group.dart';
 import 'package:provider/provider.dart';

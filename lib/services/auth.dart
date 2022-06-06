@@ -1,14 +1,6 @@
-// 📦 Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-
-enum AccessibilityMode {
-  NONE,
-  VISUAL,
-  HEARING,
-  ADHD,
-  DYSLEXIA,
-}
+import 'package:kintsugi/services/user_preferences.dart';
 
 abstract class AuthBase {
   User get currentUser;
