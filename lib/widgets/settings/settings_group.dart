@@ -17,6 +17,7 @@ class SettingsGroup extends StatelessWidget {
       children: <Widget>[
         Container(
           width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
             title,
             style: TextStyle(
@@ -25,9 +26,11 @@ class SettingsGroup extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 4.0),
         Column(
           children: children,
         ),
+        SizedBox(height: 16.0),
       ],
     );
   }

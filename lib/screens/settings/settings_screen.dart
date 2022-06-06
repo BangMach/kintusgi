@@ -93,11 +93,17 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
               SettingsGroup(
                 title: 'General',
                 children: <Widget>[
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
                     child: ListTile(
                       title: Text(
                         'Languages',
@@ -108,6 +114,13 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
                     child: ListTile(
                       title: Text(
                         'Theme',
@@ -118,6 +131,13 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
                     child: ListTile(
                       title: Text(
                         'Font Size',
@@ -134,6 +154,13 @@ class SettingsScreen extends StatelessWidget {
                 title: 'Accessibility assistant',
                 children: [
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
                     child: ListTile(
                       title: Text(
                         'Visual Impairment',
@@ -172,6 +199,13 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
                     child: ListTile(
                       title: Text(
                         'ADHD',
@@ -186,6 +220,13 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
                     child: ListTile(
                       title: Text(
                         'Dyslexia',
@@ -195,6 +236,68 @@ class SettingsScreen extends StatelessWidget {
                       trailing: Icon(
                         Icons.auto_fix_high_outlined,
                         color: Colors.indigo,
+                        size: 30.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              SettingsGroup(
+                title: 'Membership',
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        'Standard',
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      subtitle: Text('Limited access to all assissants'),
+                    ),
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        'Premium',
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      subtitle: Text(
+                          'Unlimited access for one assistant, and limited access to all other assistants'),
+                    ),
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.indigo,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        'Enterprise',
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      subtitle: Text(
+                        'Unlimited access to all assistants',
+                      ),
+                      trailing: Icon(
+                        Icons.check_box,
+                        color: Colors.green,
                         size: 30.0,
                       ),
                     ),
