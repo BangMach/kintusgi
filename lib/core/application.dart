@@ -7,8 +7,12 @@ import 'package:provider/provider.dart';
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider<AuthBase>(
-      create: (context) => Auth(),
+    return MultiProvider(
+      providers: [
+        Provider<AuthBase>(
+          create: (context) => Auth(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

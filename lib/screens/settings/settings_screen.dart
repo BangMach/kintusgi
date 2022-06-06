@@ -5,9 +5,14 @@ import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
 import 'package:kintsugi/widgets/settings/settings_group.dart';
 import 'package:provider/provider.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key key}) : super(key: key);
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _signOut(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     try {
@@ -30,9 +35,17 @@ class SettingsScreen extends StatelessWidget {
     }
   }
 
+  void selectAccessibilityMode(BuildContext context, AccessibilityMode mode) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
+    setState(() {
+      auth.setAccessibilityMode(mode);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentUser = Provider.of<AuthBase>(context).currentUser;
+    final accessibilityMode = Provider.of<AuthBase>(context).accessibilityMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -153,90 +166,152 @@ class SettingsScreen extends StatelessWidget {
               SettingsGroup(
                 title: 'Accessibility assistant',
                 children: [
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
+                  GestureDetector(
+                    onTap: () => selectAccessibilityMode(
+                      context,
+                      AccessibilityMode.VISUAL,
                     ),
-                    child: ListTile(
-                      title: Text(
-                        'Visual Impairment',
-                        style: Theme.of(context).textTheme.button,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        side: accessibilityMode == AccessibilityMode.VISUAL
+                            ? BorderSide(
+                                color: Colors.indigo,
+                                width: 2.0,
+                              )
+                            : BorderSide(
+                                color: Colors.grey,
+                                width: 1.0,
+                              ),
                       ),
-                      subtitle:
-                          Text('Adjust experiences for visually impaired'),
-                      trailing: Icon(
-                        Icons.check_box_outline_blank_rounded,
-                        color: Colors.grey,
-                        size: 30.0,
-                      ),
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.indigo,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        'Hearing Impairment',
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                      subtitle: Text(
-                        'Adjust experiences for hearing impaired',
-                      ),
-                      trailing: Icon(
-                        Icons.check_box,
-                        color: Colors.green,
-                        size: 30.0,
+                      child: ListTile(
+                        title: Text(
+                          'Visual Impairment',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle:
+                            Text('Adjust experiences for visually impaired'),
+                        trailing: accessibilityMode == AccessibilityMode.VISUAL
+                            ? Icon(
+                                Icons.check_box,
+                                color: Colors.green,
+                                size: 30.0,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank_rounded,
+                                color: Colors.grey,
+                                size: 30.0,
+                              ),
                       ),
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
+                  GestureDetector(
+                    onTap: () => selectAccessibilityMode(
+                      context,
+                      AccessibilityMode.HEARING,
                     ),
-                    child: ListTile(
-                      title: Text(
-                        'ADHD',
-                        style: Theme.of(context).textTheme.button,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        side: accessibilityMode == AccessibilityMode.HEARING
+                            ? BorderSide(
+                                color: Colors.indigo,
+                                width: 2.0,
+                              )
+                            : BorderSide(
+                                color: Colors.grey,
+                                width: 1.0,
+                              ),
                       ),
-                      subtitle: Text('Adjust experiences for ADHD users'),
-                      trailing: Icon(
-                        Icons.check_box_outline_blank_rounded,
-                        color: Colors.grey,
-                        size: 30.0,
+                      child: ListTile(
+                        title: Text(
+                          'Hearing Impairment',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Text(
+                          'Adjust experiences for hearing impaired',
+                        ),
+                        trailing: accessibilityMode == AccessibilityMode.HEARING
+                            ? Icon(
+                                Icons.check_box,
+                                color: Colors.green,
+                                size: 30.0,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank_rounded,
+                                color: Colors.grey,
+                                size: 30.0,
+                              ),
                       ),
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
+                  GestureDetector(
+                    onTap: () => selectAccessibilityMode(
+                      context,
+                      AccessibilityMode.ADHD,
+                    ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        side: accessibilityMode == AccessibilityMode.ADHD
+                            ? BorderSide(
+                                color: Colors.indigo,
+                                width: 2.0,
+                              )
+                            : BorderSide(
+                                color: Colors.grey,
+                                width: 1.0,
+                              ),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          'ADHD',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Text('Adjust experiences for ADHD users'),
+                        trailing: accessibilityMode == AccessibilityMode.ADHD
+                            ? Icon(
+                                Icons.check_box,
+                                color: Colors.green,
+                                size: 30.0,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank_rounded,
+                                color: Colors.grey,
+                                size: 30.0,
+                              ),
                       ),
                     ),
-                    child: ListTile(
-                      title: Text(
-                        'Dyslexia',
-                        style: Theme.of(context).textTheme.button,
+                  ),
+                  GestureDetector(
+                    onTap: () => selectAccessibilityMode(
+                      context,
+                      AccessibilityMode.DYSLEXIA,
+                    ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        side: accessibilityMode == AccessibilityMode.DYSLEXIA
+                            ? BorderSide(
+                                color: Colors.indigo,
+                                width: 2.0,
+                              )
+                            : BorderSide(
+                                color: Colors.grey,
+                                width: 1.0,
+                              ),
                       ),
-                      subtitle: Text('In development'),
-                      trailing: Icon(
-                        Icons.auto_fix_high_outlined,
-                        color: Colors.indigo,
-                        size: 30.0,
+                      child: ListTile(
+                        title: Text(
+                          'Dyslexia',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Text('In development'),
+                        trailing: Icon(
+                          Icons.auto_fix_high_outlined,
+                          color: Colors.indigo,
+                          size: 30.0,
+                        ),
                       ),
                     ),
                   ),
