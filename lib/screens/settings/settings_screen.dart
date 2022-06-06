@@ -185,7 +185,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SizedBox(height: 16),
               SettingsGroup(
-                title: 'Accessibility assistant',
+                title: 'Accessibility assistants',
                 children: [
                   GestureDetector(
                     onTap: () => selectAccessibilityMode(
