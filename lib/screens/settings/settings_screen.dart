@@ -62,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: <Widget>[
               SettingsGroup(
-                title: 'Account',
+                title: AppLocalizations.of(context).account,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -277,7 +277,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: ListTile(
                         title: Text(
-                          'ADHD',
+                          AppLocalizations.of(context).adhd,
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text('Adjust experiences for ADHD users'),
