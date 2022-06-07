@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kintsugi/core/constants.dart';
 import 'package:kintsugi/services/auth.dart';
 import 'package:kintsugi/services/user_preferences.dart';
 import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
@@ -412,6 +413,70 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           color: Colors.green,
                           size: 30.0,
                         ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              SettingsGroup(
+                title: 'Application',
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () => showAboutDialog(
+                      context: context,
+                      applicationName: 'Accesstant',
+                      applicationLegalese: '© 2022 Kintsugi Team',
+                      applicationVersion: APP_VERSION,
+                      applicationIcon: Image.asset(
+                        'assets/core/circular-logo.png',
+                        width: 75,
+                      ),
+                    ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        side: BorderSide(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          'About the application',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Text('Accesstant v$APP_VERSION'),
+                        trailing: Icon(Icons.keyboard_arrow_right),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => showLicensePage(
+                      context: context,
+                      applicationName: 'Accesstant',
+                      applicationLegalese: '© 2022 Kintsugi Team',
+                      applicationVersion: APP_VERSION,
+                      applicationIcon: Image.asset(
+                        'assets/core/circular-logo.png',
+                        width: 75,
+                      ),
+                    ),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        side: BorderSide(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          'Application licenses',
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Text('Built with Flutter'),
+                        trailing: Icon(Icons.keyboard_arrow_right),
                       ),
                     ),
                   ),
