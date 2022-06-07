@@ -26,5 +26,10 @@
     "membershipPremium":"Premium",
     "membershipPremiumDes": "Unlimited recording for all assistants",
     "membershipEnterpirse": "Enterprise",
-    "membershipEnterpirseDes": "Unlimited access for all assisants, back up data on multiple devices"
+    "membershipEnterpirseDes": "Unlimited access for all assisants, back up data on multiple devices",
+    "applicationSettings":"Application",
+    "aboutOurApp":"About our app",
+    "applicationLicenses":"Licenses",
+    "applicationLicensesDes":"Licenses for third party libraries",
+    "madeWithLoveBy": "Made with ❤️ by"
 }

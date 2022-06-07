@@ -278,97 +278,125 @@ class _VoiceHomeState extends State<VoiceHome> {
         backgroundColor: Colors.indigo,
       ),
       body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
-              child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 15.0,
+            horizontal: 28.0,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 15.0,
+                  horizontal: 15.0,
+                ),
+                child: SafeArea(
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                    Text(' New Note',
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'New Note',
                         style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                    SingleChildScrollView(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SingleChildScrollView(
                         reverse: true,
                         child: Container(
-                            padding: const EdgeInsets.fromLTRB(
-                                30.0, 30.0, 30.0, 150.0),
-                            child: GestureDetector(
-                                onDoubleTap: () {
-                                  print("double press clicked");
-                                },
-                                child: Text(resultText,
-                                    // words: _highlights,
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                    ))))),
-                  ])),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              SizedBox(
-                height: 100.0,
-                width: 100.0,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                      child: Icon(Icons.cancel),
-                      mini: true,
-                      backgroundColor: Colors.blue,
-                      onPressed: () {
-                        if (_isListening)
-                          _speechRecognition.cancel().then(
-                                (result) => setState(() {
-                                  _isListening = result;
-                                  resultText = "";
-                                }),
-                              );
-                      }),
+                          padding: const EdgeInsets.fromLTRB(
+                            30.0,
+                            30.0,
+                            30.0,
+                            150.0,
+                          ),
+                          child: GestureDetector(
+                            onDoubleTap: () {
+                              print("double press clicked");
+                            },
+                            child: Text(
+                              resultText,
+                              // words: _highlights,
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 125.0,
-                width: 125.0,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                      child: Icon(Icons.mic),
-                      onPressed: () {
-                        if (_isAvailable && !_isListening)
-                          _speechRecognition
-                              .listen(locale: "en_US")
-                              .then((result) => print('$result'));
-                      }),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 100.0,
+                    width: 100.0,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        child: Icon(Icons.cancel),
+                        mini: true,
+                        backgroundColor:
+                            _isListening ? Colors.blue : Colors.grey,
+                        onPressed: _isListening
+                            ? () => _speechRecognition.cancel().then(
+                                  (result) => setState(() {
+                                    _isListening = result;
+                                    resultText = "";
+                                  }),
+                                )
+                            : null,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 125.0,
+                    width: 125.0,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        child: Icon(Icons.mic),
+                        onPressed: () {
+                          if (_isAvailable && !_isListening)
+                            _speechRecognition.listen(locale: "en_US").then(
+                                  (result) => print('$result'),
+                                );
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 100.0,
+                    width: 100.0,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        child: Icon(Icons.stop),
+                        mini: true,
+                        backgroundColor:
+                            _isListening ? Colors.red : Colors.grey,
+                        onPressed: _isListening
+                            ? () => _speechRecognition.stop().then(
+                                  (result) => setState(
+                                    () => _isListening = result,
+                                  ),
+                                )
+                            : null,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 100.0,
-                width: 100.0,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                      child: Icon(Icons.stop),
-                      mini: true,
-                      backgroundColor: Colors.red,
-                      onPressed: () {
-                        if (_isListening)
-                          _speechRecognition.stop().then(
-                                (result) =>
-                                    setState(() => _isListening = result),
-                              );
-                      }),
-                ),
-              ),
-            ]),
-          ],
+            ],
+          ),
         ),
-      )),
+      ),
     );
     // throw UnimplementedError();
   }

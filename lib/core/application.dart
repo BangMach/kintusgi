@@ -26,28 +26,33 @@ class Application extends StatelessWidget {
               create: (context) => UserReferences(),
             ),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primaryColor: Colors.indigo,
-              colorScheme: ColorScheme.fromSwatch().copyWith(
-                secondary: Colors.indigoAccent,
+          builder: (context, child) {
+            final userPreferences = Provider.of<UserReferences>(context);
+            userPreferences.initialize(context);
+
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primaryColor: Colors.indigo,
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                  secondary: Colors.indigoAccent,
+                ),
+                appBarTheme: AppBarTheme(
+                  color: Colors.indigo,
+                  centerTitle: true,
+                ),
               ),
-              appBarTheme: AppBarTheme(
-                color: Colors.indigo,
-                centerTitle: true,
-              ),
-            ),
-            supportedLocales: L10n.all,
-            locale: localeProvider.locale,
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            home: LandingScreen(),
-          ),
+              supportedLocales: L10n.all,
+              locale: localeProvider.locale,
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              home: LandingScreen(),
+            );
+          },
         );
       },
     );

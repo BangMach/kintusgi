@@ -16,6 +16,7 @@ Future<bool> showAlertDialog(
   if (Platform.isIOS) {
     await showCupertinoDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return CupertinoAlertDialog(
           title: title != null ? Text(title) : null,
@@ -41,6 +42,7 @@ Future<bool> showAlertDialog(
   } else {
     await showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           title: title != null ? Text(title) : null,

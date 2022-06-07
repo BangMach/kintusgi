@@ -16,7 +16,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  Future<void> _signOut(BuildContext context) async {
+  Future<void> _logOut(BuildContext context) async {
     final auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth.signOut();
@@ -26,14 +26,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _confirmSignOut(BuildContext context) async {
-    final bool didRequestSignOut = await showAlertDialog(context,
+    final bool confirmedLogout = await showAlertDialog(context,
         title: AppLocalizations.of(context).logout,
         content: AppLocalizations.of(context).confirmContent,
         defaultActionText: AppLocalizations.of(context).confirmYes,
         cancelActionText: AppLocalizations.of(context).confirmNo);
-    if (didRequestSignOut == true) {
-      _signOut(context);
-    }
+    if (confirmedLogout) _logOut(context);
   }
 
   void selectAccessibilityMode(BuildContext context, AccessibilityMode mode) {
@@ -83,6 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                              const SizedBox(height: 8.0),
                               Text(
                                 currentUser.email,
                                 style: TextStyle(
@@ -90,6 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              const SizedBox(height: 8.0),
                               Row(
                                 children: <Widget>[
                                   // Expanded(
@@ -104,10 +104,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   //     ),
                                   //   ),
                                   // ),
-                                  // const SizedBox(width: 8),
                                   Expanded(
                                     child: ElevatedButton(
-                                      child: Text('Logout'),
+                                      child: Text(
+                                        AppLocalizations.of(context).logout,
+                                      ),
                                       onPressed: () => _confirmSignOut(context),
                                       style: ButtonStyle(
                                         backgroundColor:
@@ -232,26 +233,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 width: 1.0,
                               ),
                       ),
-                      child: ListTile(
-                        title: Text(
-                          AppLocalizations.of(context).hearingImpairment,
-                          style: Theme.of(context).textTheme.button,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 16.0,
                         ),
-                        subtitle: Text(
-                          AppLocalizations.of(context).hearingImpairmentDes,
+                        child: ListTile(
+                          title: Text(
+                            AppLocalizations.of(context).hearingImpairment,
+                            style: Theme.of(context).textTheme.button,
+                          ),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 6.0),
+                            child: Text(
+                              AppLocalizations.of(context).hearingImpairmentDes,
+                            ),
+                          ),
+                          trailing: accessibilityModes
+                                  .contains(AccessibilityMode.HEARING)
+                              ? Icon(
+                                  Icons.check_box,
+                                  color: Colors.green,
+                                  size: 30.0,
+                                )
+                              : Icon(
+                                  Icons.check_box_outline_blank_rounded,
+                                  color: Colors.grey,
+                                  size: 30.0,
+                                ),
                         ),
-                        trailing: accessibilityModes
-                                .contains(AccessibilityMode.HEARING)
-                            ? Icon(
-                                Icons.check_box,
-                                color: Colors.green,
-                                size: 30.0,
-                              )
-                            : Icon(
-                                Icons.check_box_outline_blank_rounded,
-                                color: Colors.grey,
-                                size: 30.0,
-                              ),
                       ),
                     ),
                   ),
@@ -274,24 +283,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     width: 1.0,
                                   ),
                       ),
-                      child: ListTile(
-                        title: Text(
-                          AppLocalizations.of(context).adhd,
-                          style: Theme.of(context).textTheme.button,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical:
+                              Localizations.localeOf(context).languageCode ==
+                                      'vi'
+                                  ? 16.0
+                                  : 0.0,
                         ),
-                        subtitle: Text(AppLocalizations.of(context).adhdDes),
-                        trailing:
-                            accessibilityModes.contains(AccessibilityMode.ADHD)
-                                ? Icon(
-                                    Icons.check_box,
-                                    color: Colors.green,
-                                    size: 30.0,
-                                  )
-                                : Icon(
-                                    Icons.check_box_outline_blank_rounded,
-                                    color: Colors.grey,
-                                    size: 30.0,
-                                  ),
+                        child: ListTile(
+                          title: Text(
+                            AppLocalizations.of(context).adhd,
+                            style: Theme.of(context).textTheme.button,
+                          ),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 6.0),
+                            child: Text(AppLocalizations.of(context).adhdDes),
+                          ),
+                          trailing: accessibilityModes
+                                  .contains(AccessibilityMode.ADHD)
+                              ? Icon(
+                                  Icons.check_box,
+                                  color: Colors.green,
+                                  size: 30.0,
+                                )
+                              : Icon(
+                                  Icons.check_box_outline_blank_rounded,
+                                  color: Colors.grey,
+                                  size: 30.0,
+                                ),
+                        ),
                       ),
                     ),
                   ),
@@ -364,21 +385,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         width: 1.0,
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical:
-                            Localizations.localeOf(context).languageCode == 'vi'
-                                ? 0.0
-                                : 16.0,
+                    child: ListTile(
+                      title: Text(
+                        AppLocalizations.of(context).membershipPremium,
+                        style: Theme.of(context).textTheme.button,
                       ),
-                      child: ListTile(
-                        title: Text(
-                          AppLocalizations.of(context).membershipPremium,
-                          style: Theme.of(context).textTheme.button,
-                        ),
-                        subtitle: Text(
-                          AppLocalizations.of(context).membershipPremiumDes,
-                        ),
+                      subtitle: Text(
+                        AppLocalizations.of(context).membershipPremiumDes,
                       ),
                     ),
                   ),
@@ -418,7 +431,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SizedBox(height: 16),
               SettingsGroup(
-                title: 'Application',
+                title: AppLocalizations.of(context).applicationSettings,
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => showAboutDialog(
@@ -441,7 +454,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: ListTile(
                         title: Text(
-                          'About the application',
+                          AppLocalizations.of(context).aboutOurApp,
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text('Accesstant v$APP_VERSION'),
@@ -470,10 +483,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: ListTile(
                         title: Text(
-                          'Application licenses',
+                          AppLocalizations.of(context).applicationLicenses,
                           style: Theme.of(context).textTheme.button,
                         ),
-                        subtitle: Text('Built with Flutter'),
+                        subtitle: Text(
+                          AppLocalizations.of(context).applicationLicensesDes,
+                        ),
                         trailing: Icon(Icons.keyboard_arrow_right),
                       ),
                     ),
@@ -483,7 +498,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SizedBox(height: 16),
               Text.rich(
                 TextSpan(
-                  text: 'Made with ❤️ by ',
+                  text: AppLocalizations.of(context).madeWithLoveBy + ' ',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,

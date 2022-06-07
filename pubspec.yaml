@@ -17,12 +17,13 @@ dependencies:
   firebase_core:
   firebase_auth:
   cloud_firestore:
+  shared_preferences: ^2.0.15
   cupertino_icons: ^1.0.5
   highlight_text: ^0.7.2
   avatar_glow: ^1.2.0
   speech_recognition: ^0.3.0+1
   flutter_audio_recorder2: ^0.0.2
-  path_provider: ^1.5.1
+  path_provider: ^2.0.11
   flip_card: ^0.4.4
   url_launcher: ^6.0.6
   flutter_speech: ^2.0.0

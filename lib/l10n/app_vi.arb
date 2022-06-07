@@ -4,8 +4,7 @@
     "settings": "Cài đặt",
     "account":"Tài khoản",
     "logout":"Đăng xuất",
-    "confirm":"Xác nhận",
-    "confirmContent":"Bạn muốn chắc là đăng xuất?",
+    "confirmContent":"Bạn có chắc là muốn đăng xuất?",
     "confirmYes":"Xác nhận",
     "confirmNo":"Huỷ",
     "accessibilitySelector":"Chọn chế độ trợ năng",
@@ -27,5 +26,10 @@
     "membershipPremium":"Cao cấp",
     "membershipPremiumDes": "Không giới hạn cho tất cả tính năng",
     "membershipEnterpirse": "Doanh nghiệp",
-    "membershipEnterpirseDes": "Mở tất cả tính năng, sao lưu trên nhiều thiết bị"
+    "membershipEnterpirseDes": "Mở tất cả tính năng, sao lưu trên nhiều thiết bị",
+    "applicationSettings": "Cài đặt ứng dụng",
+    "aboutOurApp": "Về ứng dụng",
+    "applicationLicenses": "Giấy phép ứng dụng",
+    "applicationLicensesDes": "Giấy phép của chúng tôi",
+    "madeWithLoveBy": "Cung cấp bởi"
 }
