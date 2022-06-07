@@ -2,11 +2,21 @@
     "language": "English",
     "home": "Home",
     "settings": "Settings",
+    "account":"Account",
     "accessibilitySelector": "Accessibility Selector",
     "accessibilitySelectorDescription": "What are your accessibility needs?",
     "proceed": "Proceed",
     "visualImpairment": "Visual impairment",
     "hearingImpairment": "Hearing impairment",
     "adhd": "ADHD",
-    "dyslexia": "Dyslexia"
+    "dyslexia": "Dyslexia",
+    "accessibilityLabel": "Accessibility Assistants",
+    "generalSettings" : "General",
+    "membership":"Membership",
+    "membershipStandard":"Standard",
+    "membershipStandardDes": "Limited recording time for all assistants",
+    "membershipPremium":"Premium",
+    "membershipPremiumDes": "Unlimited recording for all assisants",
+    "membershipEnterpirse": "Enterprise",
+    "membershipEnterpirseDes": "Unlimited access for all assisants, back up data on multiple devices"
 }
