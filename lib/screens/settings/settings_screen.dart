@@ -366,7 +366,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      padding: EdgeInsets.symmetric(
+                        vertical:
+                            Localizations.localeOf(context).languageCode == 'vi'
+                                ? 0.0
+                                : 16.0,
+                      ),
                       child: ListTile(
                         title: Text(
                           AppLocalizations.of(context).membershipPremium,
@@ -386,18 +391,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         width: 2.0,
                       ),
                     ),
-                    child: ListTile(
-                      title: Text(
-                        AppLocalizations.of(context).membershipEnterpirse,
-                        style: Theme.of(context).textTheme.button,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16.0,
                       ),
-                      subtitle: Text(
-                        AppLocalizations.of(context).membershipEnterpirseDes,
-                      ),
-                      trailing: Icon(
-                        Icons.check_box,
-                        color: Colors.green,
-                        size: 30.0,
+                      child: ListTile(
+                        title: Text(
+                          AppLocalizations.of(context).membershipEnterpirse,
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
+                          child: Text(
+                            AppLocalizations.of(context)
+                                .membershipEnterpirseDes,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.check_box,
+                          color: Colors.green,
+                          size: 30.0,
+                        ),
                       ),
                     ),
                   ),
