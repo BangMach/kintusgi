@@ -1,7 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speech/flutter_speech.dart';
-import 'package:highlight_text/highlight_text.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,27 +25,21 @@ class VoiceHome extends StatefulWidget {
 
   @override
   _VoiceHomeState createState() => _VoiceHomeState();
-  // TODO: implement createState
-  // throw UnimplementedError();
-
 }
 
 class _VoiceHomeState extends State<VoiceHome> {
   SpeechRecognition _speechRecognition;
   bool _isAvailable = false; // if we are available to interact with it
   bool _isListening = false; // is the mircophone being used
-  String _currentLocale = "";
   String resultText = "";
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initSpeechRecognizer();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Container(
           child: Column(
@@ -176,29 +169,29 @@ class SpeechScreen extends StatefulWidget {
 }
 
 class _SpeechScreenState extends State<SpeechScreen> {
-  final Map<String, HighlightedWord> _highlights = {
-    'flutter': HighlightedWord(
-      onTap: () => print('flutter'),
-      textStyle: const TextStyle(
-        color: Colors.blue,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'like': HighlightedWord(
-      onTap: () => print('subcribe'),
-      textStyle: const TextStyle(
-        color: Colors.red,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'accessibility': HighlightedWord(
-      onTap: () => print('accessibility'),
-      textStyle: const TextStyle(
-        color: Colors.green,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  };
+  // final Map<String, HighlightedWord> _highlights = {
+  //   'flutter': HighlightedWord(
+  //     onTap: () => print('flutter'),
+  //     textStyle: const TextStyle(
+  //       color: Colors.blue,
+  //       fontWeight: FontWeight.bold,
+  //     ),
+  //   ),
+  //   'like': HighlightedWord(
+  //     onTap: () => print('subcribe'),
+  //     textStyle: const TextStyle(
+  //       color: Colors.red,
+  //       fontWeight: FontWeight.bold,
+  //     ),
+  //   ),
+  //   'accessibility': HighlightedWord(
+  //     onTap: () => print('accessibility'),
+  //     textStyle: const TextStyle(
+  //       color: Colors.green,
+  //       fontWeight: FontWeight.bold,
+  //     ),
+  //   ),
+  // };
 
   bool _isListening = false;
   String _text = "Press the button and start speaking";

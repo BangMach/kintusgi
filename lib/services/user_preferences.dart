@@ -1,7 +1,3 @@
-import 'dart:ui';
-
-import 'package:kintsugi/l10n/l10n.dart';
-
 enum ThemeMode {
   light,
   dark,

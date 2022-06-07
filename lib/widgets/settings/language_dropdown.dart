@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/l10n/l10n.dart';
 import 'package:kintsugi/services/locale_provider.dart';
-import 'package:kintsugi/services/user_preferences.dart';
 import 'package:provider/provider.dart';
 
 class LanguageDropdown extends StatefulWidget {
