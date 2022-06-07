@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/screens/voice_recognizer_screen.dart';
 import 'package:kintsugi/services/user_preferences.dart';
@@ -24,7 +25,7 @@ class AccessibilitySelector extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (context) => VoiceRecognizer(),
               ),
             );

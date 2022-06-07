@@ -401,9 +401,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
               SizedBox(height: 16),
-              Text(
-                'Version ' + APP_VERSION,
-                style: Theme.of(context).textTheme.caption,
+              Text.rich(
+                TextSpan(
+                  text: 'Made with ❤️ by ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: 'Kintsugi',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kintsugi/screens/flashcard_screen.dart';
 import 'package:kintsugi/screens/list_search.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_recognition/speech_recognition.dart';
@@ -14,108 +16,102 @@ class VoiceRecognizer extends StatelessWidget {
         backgroundColor: Colors.indigo,
       ),
       body: Container(
+        padding: const EdgeInsets.all(32.0),
         child: Center(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // ignore: deprecated_member_use
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    HapticFeedback.vibrate();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return VoiceHome();
-                    }));
-                  },
+              ElevatedButton(
+                onPressed: () {
+                  HapticFeedback.vibrate();
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) {
+                    return VoiceHome();
+                  }));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "Start a new recording" ?? "default values",
-                    textAlign: TextAlign.center,
+                    "Start a new recording",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 24.0,
                     ),
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.indigo,
-                    ),
-                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
                 ),
               ),
-
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 28.0,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    HapticFeedback.vibrate();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ListSearch();
-                    }));
-                  },
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  HapticFeedback.vibrate();
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) {
+                    return ListSearch();
+                  }));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "View note list" ?? "some default value",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.indigo,
+                    "View note list",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
                     ),
                   ),
                 ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    HapticFeedback.vibrate();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ListSearch();
-                    }));
-                  },
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  HapticFeedback.vibrate();
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) {
+                    return FlashcardScreen();
+                  }));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "Flash Cards " ?? "default values",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.indigo,
+                    "Flash Cards",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    HapticFeedback.vibrate();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return VoiceHome();
-                    }));
-                  },
-                  child: Text(
-                    "Reminder" ?? "default values",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.indigo,
-                    ),
-                  ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
                 ),
               ),
+              // SizedBox(height: 32.0),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     HapticFeedback.vibrate();
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+              //       return VoiceHome();
+              //     }));
+              //   },
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(vertical: 16.0),
+              //     child: Text(
+              //       "Reminder",
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 24.0,
+              //       ),
+              //     ),
+              //   ),
+              //   style: ButtonStyle(
+              //     backgroundColor: MaterialStateProperty.all(Colors.indigo),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -178,7 +174,7 @@ class _SpeechRecognizeState extends State {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
-            FlatButton(
+            TextButton(
               onPressed: () {},
               child: Text(
                 label,
@@ -204,7 +200,6 @@ class _SpeechRecognizeState extends State {
     });
     _speech.setAvailabilityHandler(
         (bool result) => setState(() => _speechRecognitionAvailable = result));
-    _speech.setCurrentLocaleHandler(onCurrentLocale);
     _speech.setRecognitionStartedHandler(onRecognitionStarted);
     _speech.setRecognitionResultHandler(onRecognitionResult);
     _speech.setRecognitionCompleteHandler(onRecognitionComplete);
@@ -238,9 +233,6 @@ class _SpeechRecognizeState extends State {
   void onSpeechAvailability(bool result) =>
       setState(() => _speechRecognitionAvailable = result);
 
-  void onCurrentLocale(String locale) =>
-      setState(() => print("current locale: $locale"));
-
   void onRecognitionStarted() => setState(() => _isListening = true);
 
   void onRecognitionResult(String text) {
@@ -269,20 +261,22 @@ class _VoiceHomeState extends State<VoiceHome> {
   SpeechRecognition _speechRecognition;
   bool _isAvailable = false; // if we are available to interact with it
   bool _isListening = false; // is the mircophone being used
-  String _currentLocale = "";
   String resultText = "";
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initSpeechRecognizer();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Start a new recording"),
+        backgroundColor: Colors.indigo,
+      ),
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
@@ -396,7 +390,5 @@ class _VoiceHomeState extends State<VoiceHome> {
     _speechRecognition.activate().then(
           (result) => setState(() => _isAvailable = result),
         );
-    _speechRecognition.setCurrentLocaleHandler(
-        (String locale) => setState(() => _currentLocale = locale));
   }
 }
