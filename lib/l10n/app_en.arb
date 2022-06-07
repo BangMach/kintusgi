@@ -1,6 +1,12 @@
 {
     "language": "English",
-    "@language": {
-        "description": "The current language of the application."
-    }
+    "home": "Home",
+    "settings": "Settings",
+    "accessibilitySelector": "Accessibility Selector",
+    "accessibilitySelectorDescription": "What are your accessibility needs?",
+    "proceed": "Proceed",
+    "visualImpairment": "Visual impairment",
+    "hearingImpairment": "Hearing impairment",
+    "adhd": "ADHD",
+    "dyslexia": "Dyslexia"
 }

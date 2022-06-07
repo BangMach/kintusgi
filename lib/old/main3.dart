@@ -15,11 +15,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Flashcard> _flashcards = [
     Flashcard(
-        question: "Ẩn sau cái đẹp  ",
-        answer: "Là sự thô bạo,tàn ác của cuộc sống"),
-    Flashcard(question: "Temperment", answer: "Emotional State of  mind !"),
+      question: "Ẩn sau cái đẹp",
+      answer: "Là sự thô bạo, tàn ác của cuộc sống",
+    ),
     Flashcard(
-        question: "Who teaches you how to write sexy code?", answer: "lo mao!")
+      question: "Temperment",
+      answer: "Emotional State of mind!",
+    ),
+    Flashcard(
+      question: "Who teaches you how to write sexy code?",
+      answer: "lo mao!",
+    )
   ];
 
   int _currentIndex = 0;

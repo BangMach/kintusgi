@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/screens/voice_recognizer_screen.dart';
-import 'package:kintsugi/services/auth.dart';
 import 'package:kintsugi/services/user_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccessibilitySelector extends StatelessWidget {
   const AccessibilitySelector({Key key}) : super(key: key);
@@ -12,7 +12,7 @@ class AccessibilitySelector extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Accessibility Selector'),
+        title: Text(AppLocalizations.of(context).accessibilitySelector),
         backgroundColor: Colors.indigo,
       ),
       body: ButtonTypesGroup(),
@@ -40,7 +40,7 @@ class AccessibilitySelector extends StatelessWidget {
                   size: 32.0,
                 ),
                 Text(
-                  "Proceed",
+                  AppLocalizations.of(context).proceed,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24.0,
@@ -74,16 +74,16 @@ class ButtonTypesGroup extends StatefulWidget {
 
 class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
   void selectAccessibilityMode(BuildContext context, AccessibilityMode mode) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    final references = Provider.of<UserReferences>(context, listen: false);
     setState(() {
-      auth.setAccessibilityMode(mode);
+      references.setAccessibilityMode(mode);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final accessibilityModes =
-        Provider.of<AuthBase>(context).accessibilityModes;
+        Provider.of<UserReferences>(context).accessibilityModes;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -94,12 +94,13 @@ class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "What are your conditions?",
+            AppLocalizations.of(context).accessibilitySelectorDescription,
             style: TextStyle(
               color: Colors.indigo,
-              fontSize: 24.0,
+              fontSize: 30.0,
               fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 32.0,
@@ -126,7 +127,7 @@ class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ListTile(
                   title: Text(
-                    'Visual Impairment',
+                    AppLocalizations.of(context).visualImpairment,
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -171,7 +172,7 @@ class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ListTile(
                   title: Text(
-                    'Hearing Impairment',
+                    AppLocalizations.of(context).hearingImpairment,
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
@@ -216,7 +217,7 @@ class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ListTile(
                   title: Text(
-                    'ADHD',
+                    AppLocalizations.of(context).adhd,
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,

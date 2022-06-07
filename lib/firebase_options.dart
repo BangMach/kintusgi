@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAhd9YJvCGkmH8mslUMj_ayGEcxeRPDIyA',
-    appId: '1:933872441863:android:0243e22c1517482c4828a2',
+    appId: '1:933872441863:android:3e2fb8e43b9637824828a2',
     messagingSenderId: '933872441863',
     projectId: 'accesstant',
     storageBucket: 'accesstant.appspot.com',

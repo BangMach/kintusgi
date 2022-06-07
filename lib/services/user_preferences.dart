@@ -1,9 +1,6 @@
-import 'package:kintsugi/services/auth.dart';
+import 'dart:ui';
 
-enum Locales {
-  en,
-  vi,
-}
+import 'package:kintsugi/l10n/l10n.dart';
 
 enum ThemeMode {
   light,
@@ -19,9 +16,38 @@ enum AccessibilityMode {
 }
 
 abstract class UserReferencesBase {
-  Locales get locale;
   ThemeMode get themeMode;
-  AccessibilityMode get accessibilityMode;
+  List<AccessibilityMode> get accessibilityModes;
+
+  void setThemeMode(ThemeMode themeMode);
+  void setAccessibilityMode(AccessibilityMode mode);
 }
 
-// class UserReferences implements UserReferencesBase {}
+class UserReferences implements UserReferencesBase {
+  ThemeMode _themeMode = ThemeMode.light;
+  List<AccessibilityMode> _accessibilityModes = [];
+
+  @override
+  ThemeMode get themeMode => _themeMode;
+
+  @override
+  List<AccessibilityMode> get accessibilityModes => _accessibilityModes;
+
+  @override
+  void setThemeMode(ThemeMode themeMode) {
+    _themeMode = themeMode;
+  }
+
+  @override
+  void setAccessibilityMode(AccessibilityMode mode) {
+    if (mode != AccessibilityMode.DYSLEXIA) {
+      // If it does not yet exist, add it to the list
+      if (!_accessibilityModes.contains(mode)) {
+        _accessibilityModes.add(mode);
+      } else {
+        // If it already exists, remove it from the list
+        _accessibilityModes.remove(mode);
+      }
+    }
+  }
+}

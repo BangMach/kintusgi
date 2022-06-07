@@ -220,7 +220,9 @@ class _SpeechScreenState extends State<SpeechScreen> {
         repeat: true,
         child: FloatingActionButton(
           onPressed: () {},
-          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+          child: Icon(
+            _isListening ? Icons.mic : Icons.mic_none,
+          ),
         ),
       ),
       body: SingleChildScrollView(

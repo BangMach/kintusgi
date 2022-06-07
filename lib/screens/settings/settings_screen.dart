@@ -3,6 +3,7 @@ import 'package:kintsugi/core/constants.dart';
 import 'package:kintsugi/services/auth.dart';
 import 'package:kintsugi/services/user_preferences.dart';
 import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
+import 'package:kintsugi/widgets/settings/language_dropdown.dart';
 import 'package:kintsugi/widgets/settings/settings_group.dart';
 import 'package:provider/provider.dart';
 
@@ -37,9 +38,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void selectAccessibilityMode(BuildContext context, AccessibilityMode mode) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    final references = Provider.of<UserReferences>(context, listen: false);
     setState(() {
-      auth.setAccessibilityMode(mode);
+      references.setAccessibilityMode(mode);
     });
   }
 
@@ -47,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final currentUser = Provider.of<AuthBase>(context).currentUser;
     final accessibilityModes =
-        Provider.of<AuthBase>(context).accessibilityModes;
+        Provider.of<UserReferences>(context).accessibilityModes;
 
     return Scaffold(
       appBar: AppBar(
@@ -130,57 +131,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SettingsGroup(
                 title: 'General',
                 children: <Widget>[
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        'Languages',
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                      subtitle: Text('English'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        'Theme',
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                      subtitle: Text('Light'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      side: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        'Font Size',
-                        style: Theme.of(context).textTheme.button,
-                      ),
-                      subtitle: Text('Medium'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                    ),
-                  ),
+                  LanguageDropdown(),
+                  // Card(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(4.0),
+                  //     side: BorderSide(
+                  //       color: Colors.grey,
+                  //       width: 1.0,
+                  //     ),
+                  //   ),
+                  //   child: ListTile(
+                  //     title: Text(
+                  //       'Theme',
+                  //       style: Theme.of(context).textTheme.button,
+                  //     ),
+                  //     subtitle: Text('Light'),
+                  //     trailing: Icon(Icons.keyboard_arrow_right),
+                  //   ),
+                  // ),
+                  // Card(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(4.0),
+                  //     side: BorderSide(
+                  //       color: Colors.grey,
+                  //       width: 1.0,
+                  //     ),
+                  //   ),
+                  //   child: ListTile(
+                  //     title: Text(
+                  //       'Font Size',
+                  //       style: Theme.of(context).textTheme.button,
+                  //     ),
+                  //     subtitle: Text('Medium'),
+                  //     trailing: Icon(Icons.keyboard_arrow_right),
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 16),

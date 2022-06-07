@@ -1,6 +1,12 @@
 {
     "language": "Tiếng Việt",
-    "@language": {
-        "description": "The current language of the application."
-    }
+    "home": "Trang chủ",
+    "settings": "Cài đặt",
+    "accessibilitySelector":"Chọn chế độ trợ năng",
+    "accessibilitySelectorDescription":"Tình trạng của bạn là gì?",
+    "proceed": "Tiếp tục",
+    "visualImpairment": "Người nhìn bị hạn chế",
+    "hearingImpairment": "Người nghe bị hạn chế",
+    "adhd": "Người bị ADHD",
+    "dyslexia": "Người bị dyslexia"
 }
