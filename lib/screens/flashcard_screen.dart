@@ -38,34 +38,104 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 250,
-              height: 250,
-              child: FlipCard(
-                front: FlashcardView(
-                  text: _flashcards[_currentIndex].question,
-                ),
-                back: FlashcardView(
-                  text: _flashcards[_currentIndex].answer,
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 250,
+                child: FlipCard(
+                  front: FlashcardView(
+                    text: _flashcards[_currentIndex].question,
+                    isFront: true,
+                    index: _currentIndex,
+                  ),
+                  back: FlashcardView(
+                    text: _flashcards[_currentIndex].answer,
+                    isFront: false,
+                    index: _currentIndex,
+                  ),
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // ignore: deprecated_member_use
-                OutlinedButton.icon(
-                  onPressed: showPreviousCard,
-                  icon: Icon(Icons.chevron_left),
-                  label: Text('Prev'),
-                ),
-                // ignore: deprecated_member_use
-                OutlinedButton.icon(
-                  onPressed: showNextCard,
-                  icon: Icon(Icons.chevron_right),
-                  label: Text('Next'),
-                ),
-              ],
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: showPreviousCard,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.chevron_left,
+                              color: Colors.white,
+                              size: 24.0,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              'Previous',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_left,
+                              color: Colors.transparent,
+                              size: 24.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.indigo),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: showNextCard,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.transparent,
+                              size: 24.0,
+                            ),
+                            Text(
+                              'Next',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white,
+                              size: 24.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.indigo),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

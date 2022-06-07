@@ -29,9 +29,14 @@ class Application extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primaryColor: Color.fromRGBO(255, 210, 51, 1),
-              colorScheme:
-                  ColorScheme.fromSwatch().copyWith(secondary: Colors.indigo),
+              primaryColor: Colors.indigo,
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                secondary: Colors.indigoAccent,
+              ),
+              appBarTheme: AppBarTheme(
+                color: Colors.indigo,
+                centerTitle: true,
+              ),
             ),
             supportedLocales: L10n.all,
             locale: localeProvider.locale,
