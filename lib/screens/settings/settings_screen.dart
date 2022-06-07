@@ -25,13 +25,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _confirmSignOut(BuildContext context) async {
-    final bool didRequestSignOut = await showAlertDialog(
-      context,
-      title: 'Confirmation',
-      content: 'Are you sure you want to logout?',
-      defaultActionText: 'Logout',
-      cancelActionText: 'Cancel',
-    );
+    final bool didRequestSignOut = await showAlertDialog(context,
+        title: AppLocalizations.of(context).logout,
+        content: AppLocalizations.of(context).confirmContent,
+        defaultActionText: AppLocalizations.of(context).confirmYes,
+        cancelActionText: AppLocalizations.of(context).confirmNo);
     if (didRequestSignOut == true) {
       _signOut(context);
     }
@@ -129,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
               SettingsGroup(
-                title: 'General',
+                title: AppLocalizations.of(context).generalSettings,
                 children: <Widget>[
                   LanguageDropdown(),
                   // Card(
