@@ -147,23 +147,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailing: Icon(Icons.keyboard_arrow_right),
                     ),
                   ),
-                  // Card(
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(4.0),
-                  //     side: BorderSide(
-                  //       color: Colors.grey,
-                  //       width: 1.0,
-                  //     ),
-                  //   ),
-                  //   child: ListTile(
-                  //     title: Text(
-                  //       'Theme',
-                  //       style: Theme.of(context).textTheme.button,
-                  //     ),
-                  //     subtitle: Text('Light'),
-                  //     trailing: Icon(Icons.keyboard_arrow_right),
-                  //   ),
-                  // ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      side: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        'Theme',
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                      subtitle: Text('Light'),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                    ),
+                  ),
                   Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),

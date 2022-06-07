@@ -21,7 +21,7 @@ class Application extends StatelessWidget {
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: Colors.indigo),
         ),
-        supportedLocales: L10n.all,
+        // supportedLocales: L10n.all,
         home: LandingScreen(),
       ),
     );

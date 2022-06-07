@@ -64,8 +64,8 @@ class AuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.asset(
-                    'assets/core/logo.png',
-                    height: 200,
+                    'assets/core/circular-logo.png',
+                    height: 240,
                   ),
                   SizedBox(height: 20),
                   Card(
