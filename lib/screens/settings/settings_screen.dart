@@ -6,6 +6,7 @@ import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
 import 'package:kintsugi/widgets/settings/language_dropdown.dart';
 import 'package:kintsugi/widgets/settings/settings_group.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key key}) : super(key: key);
@@ -53,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Settings'),
+        title: Text(AppLocalizations.of(context).settings),
         backgroundColor: Colors.indigo,
       ),
       body: SingleChildScrollView(
@@ -170,7 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SizedBox(height: 16),
               SettingsGroup(
-                title: 'Accessibility assistants',
+                title: AppLocalizations.of(context).accessibilityLabel,
                 children: [
                   GestureDetector(
                     onTap: () => selectAccessibilityMode(
@@ -193,11 +194,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: ListTile(
                         title: Text(
-                          'Visual Impairment',
+                          AppLocalizations.of(context).visualImpairment,
                           style: Theme.of(context).textTheme.button,
                         ),
-                        subtitle:
-                            Text('Adjust experiences for visually impaired'),
+                        subtitle: Text(
+                          AppLocalizations.of(context).visualImpairment,
+                        ),
                         trailing: accessibilityModes
                                 .contains(AccessibilityMode.VISUAL)
                             ? Icon(
@@ -234,7 +236,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: ListTile(
                         title: Text(
-                          'Hearing Impairment',
+                          AppLocalizations.of(context).hearingImpairment,
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text(
@@ -349,10 +351,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     child: ListTile(
                       title: Text(
-                        'Standard',
+                        AppLocalizations.of(context).membershipStandard,
                         style: Theme.of(context).textTheme.button,
                       ),
-                      subtitle: Text('Limited access to all assissants'),
+                      subtitle: Text(
+                          AppLocalizations.of(context).membershipStandardDes),
                     ),
                   ),
                   Card(
@@ -367,11 +370,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: ListTile(
                         title: Text(
-                          'Premium',
+                          AppLocalizations.of(context).membershipPremium,
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text(
-                            'Unlimited access for one assistant, and limited access to all other assistants'),
+                          AppLocalizations.of(context).membershipPremiumDes,
+                        ),
                       ),
                     ),
                   ),
@@ -385,11 +389,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     child: ListTile(
                       title: Text(
-                        'Enterprise',
+                        AppLocalizations.of(context).membershipEnterpirse,
                         style: Theme.of(context).textTheme.button,
                       ),
                       subtitle: Text(
-                        'Unlimited access to all assistants',
+                        AppLocalizations.of(context).membershipEnterpirseDes,
                       ),
                       trailing: Icon(
                         Icons.check_box,
