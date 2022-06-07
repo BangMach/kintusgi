@@ -239,7 +239,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text(
-                          'Adjust experiences for hearing impaired',
+                          AppLocalizations.of(context).hearingImpairmentDes,
                         ),
                         trailing: accessibilityModes
                                 .contains(AccessibilityMode.HEARING)
@@ -280,7 +280,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           AppLocalizations.of(context).adhd,
                           style: Theme.of(context).textTheme.button,
                         ),
-                        subtitle: Text('Adjust experiences for ADHD users'),
+                        subtitle: Text(AppLocalizations.of(context).adhdDes),
                         trailing:
                             accessibilityModes.contains(AccessibilityMode.ADHD)
                                 ? Icon(
@@ -317,11 +317,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: ListTile(
                         title: Text(
-                          'Dyslexia',
+                          AppLocalizations.of(context).dyslexia,
                           style: Theme.of(context).textTheme.button,
                         ),
                         subtitle: Text(
-                          'In development',
+                          AppLocalizations.of(context).dyslexiaDes,
                           style: TextStyle(
                             color: Colors.orange[700],
                           ),
@@ -338,7 +338,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SizedBox(height: 16),
               SettingsGroup(
-                title: 'Membership',
+                title: AppLocalizations.of(context).membership,
                 children: [
                   Card(
                     shape: RoundedRectangleBorder(
