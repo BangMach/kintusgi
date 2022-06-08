@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/core/constants.dart';
 import 'package:kintsugi/services/auth.dart';
-import 'package:kintsugi/services/user_preferences.dart';
+import 'package:kintsugi/services/resource_manager.dart';
 import 'package:kintsugi/widgets/common/show_alert_dialog.dart';
 import 'package:kintsugi/widgets/settings/language_dropdown.dart';
 import 'package:kintsugi/widgets/settings/settings_group.dart';
@@ -35,9 +35,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void selectAccessibilityMode(BuildContext context, AccessibilityMode mode) {
-    final references = Provider.of<UserReferences>(context, listen: false);
+    final resourceManager = Provider.of<ResourceManager>(
+      context,
+      listen: false,
+    );
+
     setState(() {
-      references.setAccessibilityMode(mode);
+      resourceManager.toggleAccessibilityMode(mode);
     });
   }
 
@@ -45,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final currentUser = Provider.of<AuthBase>(context).currentUser;
     final accessibilityModes =
-        Provider.of<UserReferences>(context).accessibilityModes;
+        Provider.of<ResourceManager>(context).accessibilityModes;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,12 +72,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Row(
                       children: <Widget>[
                         CircleAvatar(
+                          backgroundColor: Colors.grey,
                           backgroundImage: currentUser.photoURL != null
                               ? NetworkImage(
                                   currentUser.photoURL,
                                 )
-                              : NetworkImage(
-                                  'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'),
+                              : AssetImage(
+                                  'assets/core/user_placeholder.png',
+                                ),
                           radius: 40,
                         ),
                         const SizedBox(width: 16),

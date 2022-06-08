@@ -5,7 +5,7 @@ import 'package:kintsugi/l10n/l10n.dart';
 import 'package:kintsugi/screens/core/landing_screen.dart';
 import 'package:kintsugi/services/auth.dart';
 import 'package:kintsugi/services/locale_provider.dart';
-import 'package:kintsugi/services/user_preferences.dart';
+import 'package:kintsugi/services/resource_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,13 +22,13 @@ class Application extends StatelessWidget {
             Provider<AuthBase>(
               create: (context) => Auth(),
             ),
-            Provider<UserReferences>(
-              create: (context) => UserReferences(),
+            Provider<ResourceManager>(
+              create: (context) => ResourceManager(),
             ),
           ],
           builder: (context, child) {
-            final userPreferences = Provider.of<UserReferences>(context);
-            userPreferences.initialize(context);
+            final resourceManager = Provider.of<ResourceManager>(context);
+            resourceManager.initialize(context);
 
             return MaterialApp(
               debugShowCheckedModeBanner: false,

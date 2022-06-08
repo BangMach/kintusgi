@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/screens/voice_recognizer_screen.dart';
-import 'package:kintsugi/services/user_preferences.dart';
+import 'package:kintsugi/services/resource_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -75,16 +75,20 @@ class ButtonTypesGroup extends StatefulWidget {
 
 class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
   void selectAccessibilityMode(BuildContext context, AccessibilityMode mode) {
-    final references = Provider.of<UserReferences>(context, listen: false);
+    final resourceManager = Provider.of<ResourceManager>(
+      context,
+      listen: false,
+    );
+
     setState(() {
-      references.setAccessibilityMode(mode);
+      resourceManager.toggleAccessibilityMode(mode);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final accessibilityModes =
-        Provider.of<UserReferences>(context).accessibilityModes;
+        Provider.of<ResourceManager>(context).accessibilityModes;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
