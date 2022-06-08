@@ -5,6 +5,7 @@ import 'package:kintsugi/screens/list_search.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VoiceRecognizer extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class VoiceRecognizer extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Voice Recognizer"),
+        title: Text(AppLocalizations.of(context).home),
         backgroundColor: Colors.indigo,
       ),
       body: Container(
@@ -33,7 +34,7 @@ class VoiceRecognizer extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "Start a new recording",
+                    AppLocalizations.of(context).startaNewRecording,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24.0,
@@ -56,7 +57,7 @@ class VoiceRecognizer extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "View note list",
+                    AppLocalizations.of(context).viewNoteList,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24.0,
@@ -79,7 +80,7 @@ class VoiceRecognizer extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "Flash Cards",
+                    AppLocalizations.of(context).viewFlashCards,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24.0,
@@ -274,7 +275,7 @@ class _VoiceHomeState extends State<VoiceHome> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Start a new recording"),
+        title: Text(AppLocalizations.of(context).startaNewRecording),
         backgroundColor: Colors.indigo,
       ),
       body: SafeArea(
@@ -298,7 +299,7 @@ class _VoiceHomeState extends State<VoiceHome> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'New Note',
+                        AppLocalizations.of(context).newNote,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,

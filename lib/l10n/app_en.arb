@@ -31,5 +31,19 @@
     "aboutOurApp":"About our app",
     "applicationLicenses":"Licenses",
     "applicationLicensesDes":"Licenses for third party libraries",
-    "madeWithLoveBy": "Made with ❤️ by"
+    "madeWithLoveBy": "Made with ❤️ by",
+    "previousBtn": "Previous",
+    "nextBtn": "Next",
+    "startaNewRecording":"Start A New Note",
+    "viewNoteList":"View note list",
+    "viewFlashCards":"View Flashcards",
+    "newNote": "New Note",
+    "searchNotes":"Search Notes"
+
+
+    
+
+
+
+
 }

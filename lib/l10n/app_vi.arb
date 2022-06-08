@@ -17,7 +17,7 @@
     "adhd": "Người rối loạn tăng động, giảm chú ý",
     "adhdDes":"Điều chỉnh trải nghiệm cho người rối loạn tăng động, giảm chú ý",
     "dyslexia": "Người mắc chứng khó đọc",
-    "dyslexiaDes": "In developement",
+    "dyslexiaDes": "Đang phát triển tính năng",
     "accessibilityLabel": "Cài đặt chức năng trợ lý",
     "generalSettings" : "Cài đặt chung",
     "membership":"Thẻ thành viên",
@@ -31,5 +31,17 @@
     "aboutOurApp": "Về ứng dụng",
     "applicationLicenses": "Giấy phép ứng dụng",
     "applicationLicensesDes": "Giấy phép của chúng tôi",
-    "madeWithLoveBy": "Cung cấp bởi"
+    "madeWithLoveBy": "Cung cấp bởi",
+    "previousBtn": "Thẻ Trước",
+    "nextBtn": "Thẻ Sau",
+    "startaNewRecording":"Bắt đầu 1 bản ghi chú mới",
+    "viewNoteList":"Xem danh sách ghi chú",
+    "viewFlashCards":"Xem flashcards",
+    "newNote": "Bản ghi chú mới",
+    "searchNotes":"Tìm kiếm ghi chú"
+
+
+
+
+    
 }

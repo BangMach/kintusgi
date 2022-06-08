@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_recognition/speech_recognition.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListSearch extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class ListSearchState extends State {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Search notes'),
+        title: Text(AppLocalizations.of(context).startaNewRecording),
         backgroundColor: Colors.indigo,
         actions: [
           _buildVoiceInput(

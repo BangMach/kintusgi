@@ -2,6 +2,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/widgets/flashcards/flashcard.dart';
 import 'package:kintsugi/widgets/flashcards/flashcard_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FlashcardScreen extends StatefulWidget {
   @override
@@ -78,7 +79,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              'Previous',
+                              AppLocalizations.of(context).previousBtn,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
@@ -113,7 +114,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                               size: 24.0,
                             ),
                             Text(
-                              'Next',
+                              AppLocalizations.of(context).nextBtn,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
