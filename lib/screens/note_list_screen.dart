@@ -1,47 +1,58 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kintsugi/models/note_model.dart';
+import 'package:kintsugi/screens/detailed_note_screen.dart';
+import 'package:kintsugi/screens/editors/edit_note_screen.dart';
+import 'package:kintsugi/services/resource_manager.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ListSearch extends StatefulWidget {
+class NoteListScreen extends StatefulWidget {
   @override
   State createState() {
-    return ListSearchState();
+    return NoteListScreenState();
   }
 }
 
-class ListSearchState extends State {
-  List _listWidgets = [];
-  List _listSearchWidgets = [];
+class NoteListScreenState extends State {
+  List<Note> _allNotes = [];
+  List<Note> _filteredNotes = [];
+
   SpeechRecognition _speech;
   bool _speechRecognitionAvailable = false;
+
   bool _isListening = false;
-  bool _isSearch = false;
+  bool _isSearching = false;
 
   String transcription = '';
 
   @override
   void initState() {
     super.initState();
-    _listWidgets.add("khiếm thị giác");
-    _listWidgets.add("một ghi chú thật là dài");
-    _listWidgets.add("tìm kiếm bằng giọng nói");
-    _listWidgets.add("danh sách đi chợ");
-    _listWidgets.add("bài giảng môn tiếng anh");
-    _listWidgets.add("bài giảng môn tiếng hoa");
-    _listWidgets.add("bài giảng môn tiếng Đức");
-    _listWidgets.add("ghi chú ngày hôm nay ");
-    _listWidgets.add("danh sách bài hát yêu  ");
-    _listWidgets.add("Lecture note number two");
-    _listWidgets.add("Lecture note number one");
-    _listWidgets.add("A very Long Note");
+    final resourceManager = Provider.of<ResourceManager>(
+      context,
+      listen: false,
+    );
 
-    _listSearchWidgets.addAll(_listWidgets);
+    final _allNotes = resourceManager.notes;
+    setState(() {
+      _filteredNotes = _allNotes;
+    });
+
     activateSpeechRecognizer();
   }
 
   @override
   Widget build(BuildContext context) {
+    final resourceManager = Provider.of<ResourceManager>(
+      context,
+      listen: false,
+    );
+
+    final notes = resourceManager.notes;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -57,18 +68,26 @@ class ListSearchState extends State {
         ],
       ),
       body: ListView.builder(
-          padding: const EdgeInsets.all(16.0),
-          physics: BouncingScrollPhysics(),
-          itemCount: _listSearchWidgets.length,
-          itemBuilder: (ctx, pos) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                  side: BorderSide(
-                    color: Colors.grey,
-                    width: 1.0,
+        padding: const EdgeInsets.all(16.0),
+        physics: BouncingScrollPhysics(),
+        itemCount: _isSearching ? _filteredNotes.length : notes.length,
+        itemBuilder: (ctx, pos) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                side: BorderSide(
+                  color: Colors.grey,
+                  width: 1.0,
+                ),
+              ),
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (ctx) => DetailedNoteScreen(
+                      note: _isSearching ? _filteredNotes[pos] : notes[pos],
+                    ),
                   ),
                 ),
                 child: ListTile(
@@ -78,16 +97,55 @@ class ListSearchState extends State {
                     size: 32,
                   ),
                   title: Text(
-                    "${_listSearchWidgets[pos]}",
+                    "${_filteredNotes[pos].title}",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                     ),
                   ),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.indigo,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditNoteScreen(
+                            note: _filteredNotes[pos],
+                            resourceManager: resourceManager,
+                            onDelete: () {
+                              setState(() {
+                                _allNotes = notes;
+                                _filteredNotes = notes;
+                              });
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => EditNoteScreen(
+              note: null,
+              resourceManager: resourceManager,
+              onDelete: null,
+            ),
+            fullscreenDialog: true,
+          ),
+        ),
+        child: Icon(Icons.add),
+      ),
     );
   }
 
@@ -110,14 +168,14 @@ class ListSearchState extends State {
               icon: Icon(Icons.mic),
               onPressed: onPressed,
             ),
-            (_isSearch)
+            (_isSearching)
                 ? IconButton(
                     icon: Icon(Icons.clear),
                     onPressed: () {
                       setState(() {
-                        _isSearch = false;
-                        _listSearchWidgets.clear();
-                        _listSearchWidgets.addAll(_listWidgets);
+                        _isSearching = false;
+                        _filteredNotes.clear();
+                        _filteredNotes.addAll(_allNotes);
                       });
                     },
                   )
@@ -145,7 +203,7 @@ class ListSearchState extends State {
   }
 
   void start() {
-    _isSearch = true;
+    _isSearching = true;
     _speech.listen(locale: 'en_US').then((result) {
       print('Started listening => result $result');
     });
@@ -178,10 +236,11 @@ class ListSearchState extends State {
   void onRecognitionResult(String text) {
     setState(() {
       transcription = text;
-      _listSearchWidgets.clear();
-      for (String k in _listWidgets) {
-        if (k.toUpperCase().contains(text.toUpperCase()))
-          _listSearchWidgets.add(k);
+      _filteredNotes.clear();
+      for (Note note in _allNotes) {
+        if (note.title.toUpperCase().contains(text.toUpperCase()) ||
+            note.content.toUpperCase().contains(text.toUpperCase()))
+          _filteredNotes.add(note);
       }
       //stop(); //stop listening now
     });
@@ -191,14 +250,7 @@ class ListSearchState extends State {
 
   void requestPermission() async {
     if (await Permission.microphone.request().isGranted) {
-      print("hello permission microphone is granted ");
+      print("hello permission microphone is granted.");
     }
-    //   PermissionStatus permission = await PermissionHandler()
-    //     .checkPermissionStatus(PermissionGroup.microphone);
-    //
-    // if (permission != PermissionStatus.granted) {
-    //   await PermissionHandler()
-    //       .requestPermissions([PermissionGroup.microphone]);
-    // }
   }
 }

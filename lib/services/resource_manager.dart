@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kintsugi/models/flashcard_model.dart';
+import 'package:kintsugi/models/note_model.dart';
 import 'package:kintsugi/services/locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,6 +46,7 @@ abstract class ResourceManagerBase {
   ThemeMode get theme;
   List<AccessibilityMode> get accessibilityModes;
   List<Flashcard> get flashcards;
+  List<Note> get notes;
 
   void loadLocale(BuildContext context);
   void saveLocale();
@@ -65,6 +67,13 @@ abstract class ResourceManagerBase {
   int getNextFlashcardId();
   Future<void> updateFlashcard(Flashcard flashcard);
   Future<void> removeFlashcard(Flashcard flashcard);
+
+  void loadNotes();
+  Future<void> saveNotes();
+  void updateNotes(List<Note> notes);
+  int getNextNoteId();
+  Future<void> updateNote(Note note);
+  Future<void> removeNote(Note note);
 }
 
 class ResourceManager implements ResourceManagerBase {
@@ -75,6 +84,7 @@ class ResourceManager implements ResourceManagerBase {
   ThemeMode _theme = ThemeMode.light;
   List<AccessibilityMode> _accessibilityModes = [];
   List<Flashcard> _flashcards = [];
+  List<Note> _notes = [];
 
   void initialize(BuildContext context) async {
     if (_initialized) return;
@@ -90,6 +100,7 @@ class ResourceManager implements ResourceManagerBase {
     loadTheme();
     loadAccessibilityModes();
     loadFlashcards();
+    loadNotes();
   }
 
   bool get initialized => _initialized;
@@ -98,6 +109,7 @@ class ResourceManager implements ResourceManagerBase {
   ThemeMode get theme => _theme ?? ThemeMode.light;
   List<AccessibilityMode> get accessibilityModes => _accessibilityModes ?? [];
   List<Flashcard> get flashcards => _flashcards ?? [];
+  List<Note> get notes => _notes ?? [];
 
   void loadLocale(BuildContext context) {
     _locale = Locale(_prefs.getString('locale') ?? 'en');
@@ -232,7 +244,12 @@ class ResourceManager implements ResourceManagerBase {
 
   int getNextFlashcardId() {
     if (!_initialized) return 0;
-    return _flashcards.length + 1;
+
+    int highestId = 0;
+    for (final flashcard in _flashcards)
+      if (flashcard.id > highestId) highestId = flashcard.id;
+
+    return highestId + 1;
   }
 
   void updateFlashcards(List<Flashcard> flashcards) {
@@ -260,5 +277,80 @@ class ResourceManager implements ResourceManagerBase {
     if (!_initialized) return;
     _flashcards.remove(flashcard);
     await saveFlashcards();
+  }
+
+  void loadNotes() {
+    _notes = _prefs.getStringList('availableNotePaths')?.map((path) {
+          return Note.fromStringList(_prefs.getStringList(path));
+        })?.toList() ??
+        [];
+    print('Loaded ${_notes.length} notes');
+
+    _notes.forEach((note) {
+      print('Note: ${note.title}');
+    });
+  }
+
+  Future<void> saveNotes() async {
+    if (!_initialized) return;
+    bool success = false;
+
+    for (final note in _notes) {
+      final path = 'note_${note.id}';
+      success = await _prefs.setStringList(path, note.toStringList());
+
+      if (success) {
+        print('Saved note: $path');
+      } else {
+        print('Failed to save note: $path');
+      }
+    }
+
+    final availableNotePaths = _notes.map((note) => 'note_${note.id}').toList();
+    success =
+        await _prefs.setStringList('availableNotePaths', availableNotePaths);
+
+    if (success) {
+      print('Saved ${_notes.length} notes');
+    } else {
+      print('Failed to save ${_notes.length} notes');
+    }
+  }
+
+  int getNextNoteId() {
+    if (!_initialized) return 0;
+
+    int highestId = 0;
+    for (final note in _notes) if (note.id > highestId) highestId = note.id;
+
+    return highestId + 1;
+  }
+
+  void updateNotes(List<Note> notes) {
+    if (!_initialized) return;
+    _notes = notes;
+    saveNotes();
+  }
+
+  Future<void> updateNote(Note note) async {
+    if (!_initialized) return;
+
+    if (!_notes.any((n) => n.id == note.id)) {
+      // If the note's ID doesn't exist, add it.
+      _notes.add(note);
+    } else {
+      // If the note's ID exists, update it.
+      final index = _notes.indexWhere((n) => n.id == note.id);
+      _notes[index] = note;
+    }
+    print("Notes: $_notes");
+
+    await saveNotes();
+  }
+
+  Future<void> removeNote(Note note) async {
+    if (!_initialized) return;
+    _notes.remove(note);
+    await saveNotes();
   }
 }

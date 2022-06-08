@@ -43,11 +43,20 @@
     "noFlashcardsYet": "No flashcards yet",
     "createNewFlashcard": "Create new Flashcard",
     "editFlashcard": "Edit Flashcard",
+    "createNewNote": "Create new Note",
+    "editNote": "Edit Note",
     "question": "Question",
     "questionMustNotBeEmpty": "Question must not be empty",
     "answer": "Answer",
     "answerMustNotBeEmpty": "Answer must not be empty",
     "deleteFlashcard": "Delete Flashcard",
     "deleteFlashcardConfirm": "Are you sure you want to delete this flashcard?",
-    "delete": "Delete"
+    "delete": "Delete",
+    "title": "Title",
+    "titleMustNotBeEmpty": "Title must not be empty",
+    "content": "Content",
+    "contentMustNotBeEmpty": "Content must not be empty",
+    "deleteNote": "Delete Note",
+    "deleteNoteConfirm": "Are you sure you want to delete this note?",
+    "detailedNote": "Detailed Note"
 }

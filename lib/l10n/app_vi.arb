@@ -43,11 +43,20 @@
     "noFlashcardsYet": "Chưa có flashcards nào",
     "createNewFlashcard": "Tạo flashcard mới",
     "editFlashcard": "Sửa flashcard",
+    "createNewNote": "Tạo ghi chú mới",
+    "editNote": "Sửa ghi chú",
     "question": "Câu hỏi",
     "questionMustNotBeEmpty": "Câu hỏi không được để trống",
     "answer": "Câu trả lời",
     "answerMustNotBeEmpty": "Câu trả lời không được để trống",
     "deleteFlashcard": "Xóa flashcard",
     "deleteFlashcardConfirm": "Bạn có chắc chắn muốn xóa flashcard này?",
-    "delete": "Xóa"
+    "delete": "Xóa",
+    "title": "Tiêu đề",
+    "titleMustNotBeEmpty": "Tiêu đề không được để trống",
+    "content": "Nội dung",
+    "contentMustNotBeEmpty": "Nội dung không được để trống",
+    "deleteNote": "Xóa ghi chú",
+    "deleteNoteConfirm": "Bạn có chắc chắn muốn xóa ghi chú này?",
+    "detailedNote": "Ghi chú chi tiết"
 }
