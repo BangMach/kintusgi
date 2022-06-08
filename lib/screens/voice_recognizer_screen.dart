@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/screens/flashcard_screen.dart';
-import 'package:kintsugi/screens/list_search.dart';
+import 'package:kintsugi/screens/note_list_screen.dart';
+import 'package:kintsugi/services/resource_manager.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,6 +12,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class VoiceRecognizer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final accessibilityModes =
+        Provider.of<ResourceManager>(context).accessibilityModes;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -23,74 +28,84 @@ class VoiceRecognizer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  HapticFeedback.vibrate();
-                  Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) {
-                    return VoiceHome();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    AppLocalizations.of(context).startaNewRecording,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
+              if (accessibilityModes.contains(AccessibilityMode.VISUAL) ||
+                  accessibilityModes.contains(AccessibilityMode.HEARING) ||
+                  accessibilityModes.isEmpty) ...[
+                ElevatedButton(
+                  onPressed: () {
+                    HapticFeedback.vibrate();
+                    Navigator.push(context,
+                        CupertinoPageRoute(builder: (context) {
+                      return VoiceHome();
+                    }));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      AppLocalizations.of(context).startaNewRecording,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                      ),
                     ),
                   ),
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                ),
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  HapticFeedback.vibrate();
-                  Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) {
-                    return ListSearch();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    AppLocalizations.of(context).viewNoteList,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                    ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
                   ),
                 ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                ),
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  HapticFeedback.vibrate();
-                  Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) {
-                    return FlashcardScreen();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    AppLocalizations.of(context).viewFlashCards,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
+                SizedBox(height: 32.0),
+              ],
+              if (accessibilityModes.contains(AccessibilityMode.VISUAL) ||
+                  accessibilityModes.contains(AccessibilityMode.HEARING) ||
+                  accessibilityModes.isEmpty) ...[
+                ElevatedButton(
+                  onPressed: () {
+                    HapticFeedback.vibrate();
+                    Navigator.push(context,
+                        CupertinoPageRoute(builder: (context) {
+                      return NoteListScreen();
+                    }));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      AppLocalizations.of(context).viewNoteList,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                      ),
                     ),
                   ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                  ),
                 ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                SizedBox(height: 32.0),
+              ],
+              if (accessibilityModes.contains(AccessibilityMode.ADHD) ||
+                  accessibilityModes.isEmpty)
+                ElevatedButton(
+                  onPressed: () {
+                    HapticFeedback.vibrate();
+                    Navigator.push(context,
+                        CupertinoPageRoute(builder: (context) {
+                      return FlashcardScreen();
+                    }));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      AppLocalizations.of(context).viewFlashCards,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                      ),
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                  ),
                 ),
-              ),
               // SizedBox(height: 32.0),
               // ElevatedButton(
               //   onPressed: () {
@@ -160,10 +175,12 @@ class _SpeechRecognizeState extends State {
           child: Text(
             (transcription.isEmpty)
                 ? "Speak to Record"
-                : "Your text is \n\n$transcription",
+                : "Your text is\n\n$transcription",
             textAlign: TextAlign.center,
-            style:
-                TextStyle(color: Color.fromRGBO(255, 210, 51, 1), fontSize: 20),
+            style: TextStyle(
+              color: Color.fromRGBO(255, 210, 51, 1),
+              fontSize: 20,
+            ),
           ),
         ),
       ),

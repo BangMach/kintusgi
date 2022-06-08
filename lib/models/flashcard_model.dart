@@ -31,6 +31,6 @@ class Flashcard {
 
   @override
   String toString() {
-    return 'Flashcard{id: $id, front: $front, back: $back, createdAt: $createdAt}';
+    return 'Flashcard {id: $id, front: $front, back: $back, createdAt: $createdAt}';
   }
 }
