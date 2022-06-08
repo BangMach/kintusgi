@@ -45,5 +45,9 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Please let the app use the microphone to recognize your voice.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Listen and Reconigze Speech input</string>
 </dict>
 </plist>
