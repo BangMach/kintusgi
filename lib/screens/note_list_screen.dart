@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../services/locale_provider.dart';
+
 class NoteListScreen extends StatefulWidget {
   @override
   State createState() {
@@ -204,7 +206,9 @@ class NoteListScreenState extends State {
 
   void start() {
     _isSearching = true;
-    _speech.listen(locale: 'en_US').then((result) {
+    final localeProvider = Provider.of<LocaleProvider>(context);
+
+    _speech.listen(locale: localeProvider.locale.languageCode).then((result) {
       print('Started listening => result $result');
     });
   }
