@@ -50,7 +50,7 @@ class _LanguageDropdownState extends State<LanguageDropdown> {
             fontWeight: FontWeight.bold,
           ),
           onChanged: (Locale newValue) {
-            localeProvider.setLocale(newValue);
+            localeProvider.setLocale(context, newValue);
           },
           items: L10n.all.map<DropdownMenuItem<Locale>>((Locale value) {
             return DropdownMenuItem<Locale>(
