@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCSq5DqOdcK2JcuZrx4rOkc0L3vmTmVsg0',
+    appId: '1:933872441863:web:96db0b0e4634d4f84828a2',
+    messagingSenderId: '933872441863',
+    projectId: 'accesstant',
+    authDomain: 'accesstant.firebaseapp.com',
+    storageBucket: 'accesstant.appspot.com',
+    measurementId: 'G-8SEDKL82DN',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAhd9YJvCGkmH8mslUMj_ayGEcxeRPDIyA',
     appId: '1:933872441863:android:3e2fb8e43b9637824828a2',
@@ -59,11 +63,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC-QELksJYwMEjkehfixK8uGnMgOR5fRBA',
-    appId: '1:933872441863:ios:3564715dacbc67a64828a2',
+    appId: '1:933872441863:ios:44031fb7462930eb4828a2',
     messagingSenderId: '933872441863',
     projectId: 'accesstant',
     storageBucket: 'accesstant.appspot.com',
-    iosClientId: '933872441863-ehmvii8o05jcall7uk1ijt1ummcdqri9.apps.googleusercontent.com',
-    iosBundleId: 'com.example.kintsugy',
+    iosClientId: '933872441863-k4k8u0fdcgb5caq7cad3t67ofom70thb.apps.googleusercontent.com',
+    iosBundleId: 'com.vohoangphuc.kintsugi',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyC-QELksJYwMEjkehfixK8uGnMgOR5fRBA',
+    appId: '1:933872441863:ios:44031fb7462930eb4828a2',
+    messagingSenderId: '933872441863',
+    projectId: 'accesstant',
+    storageBucket: 'accesstant.appspot.com',
+    iosClientId: '933872441863-k4k8u0fdcgb5caq7cad3t67ofom70thb.apps.googleusercontent.com',
+    iosBundleId: 'com.vohoangphuc.kintsugi',
   );
 }
