@@ -57,5 +57,6 @@
     "content": "Nội dung",
     "contentMustNotBeEmpty": "Nội dung không được để trống",
     "deleteNote": "Xóa ghi chú",
-    "deleteNoteConfirm": "Bạn có chắc chắn muốn xóa ghi chú này?"
+    "deleteNoteConfirm": "Bạn có chắc chắn muốn xóa ghi chú này?",
+    "detailedNote": "Ghi chú chi tiết"
 }

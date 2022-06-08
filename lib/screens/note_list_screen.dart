@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/models/note_model.dart';
+import 'package:kintsugi/screens/detailed_note_screen.dart';
 import 'package:kintsugi/screens/editors/edit_note_screen.dart';
 import 'package:kintsugi/services/resource_manager.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -81,41 +82,50 @@ class NoteListScreenState extends State {
                   width: 1.0,
                 ),
               ),
-              child: ListTile(
-                leading: Icon(
-                  Icons.description,
-                  color: Colors.indigo,
-                  size: 32,
-                ),
-                title: Text(
-                  "${_filteredNotes[pos].title}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (ctx) => DetailedNoteScreen(
+                      note: _isSearching ? _filteredNotes[pos] : notes[pos],
+                    ),
                   ),
                 ),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.edit,
+                child: ListTile(
+                  leading: Icon(
+                    Icons.description,
                     color: Colors.indigo,
+                    size: 32,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditNoteScreen(
-                          note: _filteredNotes[pos],
-                          resourceManager: resourceManager,
-                          onDelete: () {
-                            setState(() {
-                              _allNotes = notes;
-                              _filteredNotes = notes;
-                            });
-                          },
+                  title: Text(
+                    "${_filteredNotes[pos].title}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.indigo,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditNoteScreen(
+                            note: _filteredNotes[pos],
+                            resourceManager: resourceManager,
+                            onDelete: () {
+                              setState(() {
+                                _allNotes = notes;
+                                _filteredNotes = notes;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

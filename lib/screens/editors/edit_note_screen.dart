@@ -197,6 +197,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
       ),
       SizedBox(height: 10),
       TextFormField(
+        maxLines: null,
         decoration: InputDecoration(
           labelText: AppLocalizations.of(context).content,
           border: OutlineInputBorder(
