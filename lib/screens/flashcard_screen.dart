@@ -32,7 +32,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Flash Cards"),
+        title: Text("Flashcards"),
         backgroundColor: Colors.indigo,
       ),
       body: Center(

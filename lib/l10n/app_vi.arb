@@ -38,10 +38,6 @@
     "viewNoteList":"Xem danh sách ghi chú",
     "viewFlashCards":"Xem flashcards",
     "newNote": "Bản ghi chú mới",
-    "searchNotes":"Tìm kiếm ghi chú"
-
-
-
-
-    
+    "searchNotes":"Tìm kiếm ghi chú",
+    "noteList": "Danh sách ghi chú"
 }

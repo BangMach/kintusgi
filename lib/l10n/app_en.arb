@@ -38,12 +38,6 @@
     "viewNoteList":"View note list",
     "viewFlashCards":"View Flashcards",
     "newNote": "New Note",
-    "searchNotes":"Search Notes"
-
-
-    
-
-
-
-
+    "searchNotes":"Search Notes",
+    "noteList":"Note List"
 }

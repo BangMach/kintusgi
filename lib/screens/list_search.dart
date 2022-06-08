@@ -45,7 +45,7 @@ class ListSearchState extends State {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(AppLocalizations.of(context).startaNewRecording),
+        title: Text(AppLocalizations.of(context).noteList),
         backgroundColor: Colors.indigo,
         actions: [
           _buildVoiceInput(
