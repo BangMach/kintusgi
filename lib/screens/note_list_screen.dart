@@ -4,6 +4,7 @@ import 'package:kintsugi/models/note_model.dart';
 import 'package:kintsugi/screens/detailed_note_screen.dart';
 import 'package:kintsugi/screens/editors/edit_note_screen.dart';
 import 'package:kintsugi/services/resource_manager.dart';
+import 'package:kintsugi/widgets/custom/show_exception_alert_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
@@ -19,6 +20,8 @@ class NoteListScreen extends StatefulWidget {
 }
 
 class NoteListScreenState extends State {
+  bool _hasError = false;
+
   List<Note> _allNotes = [];
   List<Note> _filteredNotes = [];
 
@@ -152,50 +155,54 @@ class NoteListScreenState extends State {
   }
 
   Widget _buildVoiceInput({String label, VoidCallback onPressed}) {
+    final resourceManager = Provider.of<ResourceManager>(
+      context,
+      listen: false,
+    );
+
     return Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            // ignore: deprecated_member_use
-            FlatButton(
-              onPressed: () {
-                print("button pressed");
-              },
-              child: Text(
-                label,
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.mic),
-              onPressed: onPressed,
-            ),
-            (_isSearching)
-                ? IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      setState(() {
-                        _isSearching = false;
-                        _filteredNotes.clear();
-                        _filteredNotes.addAll(_allNotes);
-                      });
-                    },
-                  )
-                : Text(""),
-          ],
-        ));
+      padding: const EdgeInsets.all(12.0),
+      child: IconButton(
+        icon: Icon(_hasError
+            ? Icons.warning
+            : _isSearching
+                ? Icons.clear
+                : Icons.mic),
+        onPressed: _hasError
+            ? null
+            : _isSearching
+                ? () {
+                    setState(() {
+                      _speech.cancel();
+
+                      _isSearching = false;
+                      _isSearching = false;
+
+                      _filteredNotes = resourceManager.notes;
+                    });
+                  }
+                : onPressed,
+      ),
+    );
   }
 
   void activateSpeechRecognizer() {
     requestPermission();
 
     _speech = new SpeechRecognition();
-    _speech.setAvailabilityHandler((result) {
+    final _localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+
+    _speech.setAvailabilityHandler(handleAvailability);
+
+    _speech.setCurrentLocaleHandler((locale) {
+      print('setCurrentLocaleHandler: $locale');
       setState(() {
-        _speechRecognitionAvailable = result;
+        // locale is a string of the form 'en_US'
+        // we need to split it into a language and a country
+        final newLocale = Locale(locale.split('_')[0], locale.split('_')[1]);
+        _localeProvider.setLocale(context, newLocale);
       });
     });
-    _speech.setCurrentLocaleHandler(onCurrentLocale);
     _speech.setRecognitionStartedHandler(onRecognitionStarted);
     _speech.setRecognitionResultHandler(onRecognitionResult);
     _speech.setRecognitionCompleteHandler(onRecognitionComplete);
@@ -206,9 +213,8 @@ class NoteListScreenState extends State {
 
   void start() {
     _isSearching = true;
-    final localeProvider = Provider.of<LocaleProvider>(context);
 
-    _speech.listen(locale: localeProvider.locale.languageCode).then((result) {
+    _speech.listen(locale: 'en_US').then((result) {
       print('Started listening => result $result');
     });
   }
@@ -216,7 +222,7 @@ class NoteListScreenState extends State {
   void cancel() {
     _speech.cancel().then((result) {
       setState(() {
-        _isListening = result;
+        _isListening = false;
       });
     });
   }
@@ -224,16 +230,13 @@ class NoteListScreenState extends State {
   void stop() {
     _speech.stop().then((result) {
       setState(() {
-        _isListening = result;
+        _isListening = false;
       });
     });
   }
 
   void onSpeechAvailability(bool result) =>
       setState(() => _speechRecognitionAvailable = result);
-
-  void onCurrentLocale(String locale) =>
-      setState(() => print("current locale: $locale"));
 
   void onRecognitionStarted() => setState(() => _isListening = true);
 
@@ -255,6 +258,26 @@ class NoteListScreenState extends State {
   void requestPermission() async {
     if (await Permission.microphone.request().isGranted) {
       print("hello permission microphone is granted.");
+    }
+  }
+
+  void handleAvailability(bool result) async {
+    setState(() {
+      _speechRecognitionAvailable = result;
+    });
+
+    if (!result) {
+      if (_hasError) return;
+      await _speech.stop();
+      setState(() {
+        _hasError = true;
+      });
+      await showExceptionAlertDialog(
+        context,
+        exception: Exception(
+          'Speech recognition not available',
+        ),
+      );
     }
   }
 }

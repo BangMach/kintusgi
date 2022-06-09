@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kintsugi/screens/flashcard_screen.dart';
+import 'package:kintsugi/screens/new_recording_screen.dart';
 import 'package:kintsugi/screens/note_list_screen.dart';
 import 'package:kintsugi/services/resource_manager.dart';
+import 'package:kintsugi/widgets/custom/show_exception_alert_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_recognition/speech_recognition.dart';
@@ -36,7 +38,7 @@ class VoiceRecognizer extends StatelessWidget {
                     HapticFeedback.vibrate();
                     Navigator.push(context,
                         CupertinoPageRoute(builder: (context) {
-                      return VoiceHome();
+                      return NewRecordingScreen();
                     }));
                   },
                   child: Padding(
@@ -216,8 +218,8 @@ class _SpeechRecognizeState extends State {
         _speechRecognitionAvailable = result;
       });
     });
-    _speech.setAvailabilityHandler(
-        (bool result) => setState(() => _speechRecognitionAvailable = result));
+
+    _speech.setAvailabilityHandler(handleAvailability);
     _speech.setRecognitionStartedHandler(onRecognitionStarted);
     _speech.setRecognitionResultHandler(onRecognitionResult);
     _speech.setRecognitionCompleteHandler(onRecognitionComplete);
@@ -227,7 +229,8 @@ class _SpeechRecognizeState extends State {
   }
 
   void start() {
-    _speech.listen(locale: 'en_US').then((result) {
+    final locale = Localizations.localeOf(context);
+    _speech.listen(locale: locale.languageCode).then((result) {
       print('Started listening => result $result');
     });
   }
@@ -235,7 +238,7 @@ class _SpeechRecognizeState extends State {
   void cancel() {
     _speech.cancel().then((result) {
       setState(() {
-        _isListening = result;
+        _isListening = false;
       });
     });
   }
@@ -243,13 +246,20 @@ class _SpeechRecognizeState extends State {
   void stop() {
     _speech.stop().then((result) {
       setState(() {
-        _isListening = result;
+        _isListening = false;
       });
     });
   }
 
-  void onSpeechAvailability(bool result) =>
-      setState(() => _speechRecognitionAvailable = result);
+  void onSpeechAvailability(bool result) {
+    setState(() => _speechRecognitionAvailable = result);
+    if (!result) {
+      _speech.cancel();
+      print('Speech recognition not available');
+      showExceptionAlertDialog(context,
+          exception: Exception('Speech recognition not available'));
+    }
+  }
 
   void onRecognitionStarted() => setState(() => _isListening = true);
 
@@ -257,6 +267,16 @@ class _SpeechRecognizeState extends State {
     setState(() {
       transcription = text;
     });
+  }
+
+  void handleAvailability(bool result) {
+    setState(() => _speechRecognitionAvailable = result);
+    if (!result) {
+      _speech.cancel();
+      print('Speech recognition not available');
+      showExceptionAlertDialog(context,
+          exception: Exception('Speech recognition not available'));
+    }
   }
 
   void onRecognitionComplete() => setState(() => _isListening = false);
@@ -267,174 +287,5 @@ class _SpeechRecognizeState extends State {
     } else {
       print("still waiting for permission");
     }
-  }
-}
-
-class VoiceHome extends StatefulWidget {
-  @override
-  _VoiceHomeState createState() => _VoiceHomeState();
-}
-
-class _VoiceHomeState extends State<VoiceHome> {
-  SpeechRecognition _speechRecognition;
-  bool _isAvailable = false; // if we are available to interact with it
-  bool _isListening = false; // is the mircophone being used
-  String resultText = "";
-
-  @override
-  void initState() {
-    super.initState();
-    initSpeechRecognizer();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(AppLocalizations.of(context).startaNewRecording),
-        backgroundColor: Colors.indigo,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 15.0,
-            horizontal: 28.0,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 15.0,
-                ),
-                child: SafeArea(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        AppLocalizations.of(context).newNote,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        reverse: true,
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(
-                            30.0,
-                            30.0,
-                            30.0,
-                            150.0,
-                          ),
-                          child: GestureDetector(
-                            onDoubleTap: () {
-                              print("double press clicked");
-                            },
-                            child: Text(
-                              resultText,
-                              // words: _highlights,
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 100.0,
-                    width: 100.0,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        child: Icon(Icons.cancel),
-                        mini: true,
-                        backgroundColor:
-                            _isListening ? Colors.blue : Colors.grey,
-                        onPressed: _isListening
-                            ? () => _speechRecognition.cancel().then(
-                                  (result) => setState(() {
-                                    _isListening = result;
-                                    resultText = "";
-                                  }),
-                                )
-                            : null,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 125.0,
-                    width: 125.0,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        child: Icon(Icons.mic),
-                        onPressed: () {
-                          if (_isAvailable && !_isListening)
-                            _speechRecognition.listen(locale: "en_US").then(
-                                  (result) => print('$result'),
-                                );
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 100.0,
-                    width: 100.0,
-                    child: FittedBox(
-                      child: FloatingActionButton(
-                        child: Icon(Icons.stop),
-                        mini: true,
-                        backgroundColor:
-                            _isListening ? Colors.red : Colors.grey,
-                        onPressed: _isListening
-                            ? () => _speechRecognition.stop().then(
-                                  (result) => setState(
-                                    () => _isListening = result,
-                                  ),
-                                )
-                            : null,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-    // throw UnimplementedError();
-  }
-
-  void initSpeechRecognizer() {
-    _speechRecognition = SpeechRecognition();
-    _speechRecognition.setAvailabilityHandler(
-        (bool result) => setState(() => _isAvailable = result));
-
-    _speechRecognition.setRecognitionStartedHandler(
-        () => setState(() => _isListening = true));
-
-    _speechRecognition.setRecognitionResultHandler(
-        (String speech) async => setState(() => resultText = speech));
-
-    _speechRecognition.setRecognitionCompleteHandler(
-        () => setState(() => _isListening = false));
-
-    _speechRecognition.activate().then(
-          (result) => setState(() => _isAvailable = result),
-        );
   }
 }

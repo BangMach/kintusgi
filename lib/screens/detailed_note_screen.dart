@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:kintsugi/data/highlighting_list.dart';
 import 'package:kintsugi/models/note_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -23,9 +24,10 @@ class DetailedNoteScreen extends StatelessWidget {
       return true;
     }
 
-    // Check if the text is a date
+    // Check if the text is a date (dd-mm-yyyy) or (dd/mm/yyyy)
     if (text.isNotEmpty &&
-        text.contains(RegExp(r'[0-9]{4}-[0-9]{2}-[0-9]{2}'))) {
+            text.contains(RegExp(r'[0-9]{2}-[0-9]{2}-[0-9]{4}')) ||
+        text.contains(RegExp(r'[0-9]{2}/[0-9]{2}/[0-9]{4}'))) {
       return true;
     }
 
@@ -44,7 +46,7 @@ class DetailedNoteScreen extends StatelessWidget {
     // Check if the text is 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'
     if (text.isNotEmpty &&
         text.contains(RegExp(
-            r'[0-9]{1,3}(?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)'))) {
+            r'(?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)'))) {
       return true;
     }
 
@@ -57,22 +59,27 @@ class DetailedNoteScreen extends StatelessWidget {
 
     // Check if the text is 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
     if (text.isNotEmpty &&
-        text.contains(RegExp(
-            r'[0-9]{1,3}(?:one|two|three|four|five|six|seven|eight|nine)'))) {
+        text.contains(
+            RegExp(r'(?:one|two|three|four|five|six|seven|eight|nine)'))) {
       return true;
     }
 
     // Check if the text is 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
     if (text.isNotEmpty &&
         text.contains(RegExp(
-            r'[0-9]{1,3}(?:ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen)'))) {
+            r'(?:ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen)'))) {
       return true;
     }
 
     // Check if the text is 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
     if (text.isNotEmpty &&
         text.contains(RegExp(
-            r'[0-9]{1,3}(?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)'))) {
+            r'(?:twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)'))) {
+      return true;
+    }
+
+    // Check from highlighting list
+    if (HighlightingList.checkIfHighlightable(text)) {
       return true;
     }
 
@@ -136,7 +143,8 @@ class DetailedNoteScreen extends StatelessWidget {
         title: Text(AppLocalizations.of(context).detailedNote),
         backgroundColor: Colors.indigo,
       ),
-      body: Container(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
