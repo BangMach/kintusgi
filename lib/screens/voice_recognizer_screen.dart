@@ -49,6 +49,7 @@ class VoiceRecognizer extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 24.0,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   style: ButtonStyle(
@@ -76,6 +77,7 @@ class VoiceRecognizer extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 24.0,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   style: ButtonStyle(
@@ -102,6 +104,7 @@ class VoiceRecognizer extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 24.0,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   style: ButtonStyle(

@@ -58,5 +58,6 @@
     "contentMustNotBeEmpty": "Content must not be empty",
     "deleteNote": "Delete Note",
     "deleteNoteConfirm": "Are you sure you want to delete this note?",
-    "detailedNote": "Detailed Note"
+    "detailedNote": "Detailed Note",
+    "none": "None"
 }

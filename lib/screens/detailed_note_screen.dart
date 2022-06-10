@@ -37,9 +37,8 @@ class DetailedNoteScreen extends StatelessWidget {
       return true;
     }
 
-    // Check if the text is a number represented in words
-    if (text.isNotEmpty &&
-        text.contains(RegExp(r'[0-9]{1,3}(?:st|nd|rd|th)'))) {
+    // Check if the text is any number represented in *st, *nd, *rd, *th
+    if (text.isNotEmpty && text.contains(RegExp(r'[0-9]{1,2}(st|nd|rd|th)'))) {
       return true;
     }
 
@@ -92,12 +91,11 @@ class DetailedNoteScreen extends StatelessWidget {
     final List<Color> colors = [
       Colors.red[900],
       Colors.pink[900],
-      Colors.deepPurple[900],
-      Colors.indigo[900],
+      Colors.purple[900],
       Colors.blue[900],
       Colors.cyan[900],
       Colors.lightGreen[900],
-      Colors.deepOrange[900],
+      Colors.orange[900],
     ];
 
     return colors[random.nextInt(colors.length)];

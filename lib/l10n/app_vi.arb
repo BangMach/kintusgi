@@ -12,8 +12,8 @@
     "proceed": "Tiếp tục",
     "visualImpairment": "Người khiếm thị",
     "visualImpairmentDes": "Điều chỉnh trải nghiệm cho người khiếm thị",
-    "hearingImpairment": "Người khiếm giác",
-    "hearingImpairmentDes": "Điều chỉnh trải nghiệm cho người khiếm giác",
+    "hearingImpairment": "Người khiếm thính",
+    "hearingImpairmentDes": "Điều chỉnh trải nghiệm cho người khiếm thính",
     "adhd": "Người rối loạn tăng động, giảm chú ý",
     "adhdDes": "Điều chỉnh trải nghiệm cho người rối loạn tăng động, giảm chú ý",
     "dyslexia": "Người mắc chứng khó đọc",
@@ -58,5 +58,6 @@
     "contentMustNotBeEmpty": "Nội dung không được để trống",
     "deleteNote": "Xóa ghi chú",
     "deleteNoteConfirm": "Bạn có chắc chắn muốn xóa ghi chú này?",
-    "detailedNote": "Ghi chú chi tiết"
+    "detailedNote": "Ghi chú chi tiết",
+    "none": "Không có"
 }

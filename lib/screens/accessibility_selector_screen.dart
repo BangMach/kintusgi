@@ -85,12 +85,23 @@ class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
     });
   }
 
+  void deselectAll(BuildContext context) {
+    final resourceManager = Provider.of<ResourceManager>(
+      context,
+      listen: false,
+    );
+
+    setState(() {
+      resourceManager.updateAccessibilityModes([]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final accessibilityModes =
         Provider.of<ResourceManager>(context).accessibilityModes;
 
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(
         horizontal: 16.0,
         vertical: 32.0,
@@ -243,6 +254,48 @@ class _ButtonTypesGroupState extends State<ButtonTypesGroup> {
               ),
             ),
           ),
+          SizedBox(height: 8.0),
+          GestureDetector(
+            onTap: () => deselectAll(context),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                side: accessibilityModes.isEmpty
+                    ? BorderSide(
+                        color: Colors.indigo,
+                        width: 2.0,
+                      )
+                    : BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
+                      ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ListTile(
+                  title: Text(
+                    AppLocalizations.of(context).none,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  trailing: accessibilityModes.isEmpty
+                      ? Icon(
+                          Icons.check_box,
+                          color: Colors.green,
+                          size: 30.0,
+                        )
+                      : Icon(
+                          Icons.check_box_outline_blank_rounded,
+                          color: Colors.grey,
+                          size: 30.0,
+                        ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 48.0),
           // SizedBox(
           //   width: 300.0,
           //   height: 50,
