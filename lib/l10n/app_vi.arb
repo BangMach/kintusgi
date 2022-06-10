@@ -45,6 +45,7 @@
     "editFlashcard": "Sửa flashcard",
     "createNewNote": "Tạo ghi chú mới",
     "editNote": "Sửa ghi chú",
+    "saveNote": "Lưu ghi chú",
     "question": "Câu hỏi",
     "questionMustNotBeEmpty": "Câu hỏi không được để trống",
     "answer": "Câu trả lời",

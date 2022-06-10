@@ -112,10 +112,11 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               : AppLocalizations.of(context).editNote,
         ),
         actions: [
-          IconButton(
-            onPressed: _submit,
-            icon: Icon(Icons.check),
-          ),
+          if (widget.note != null)
+            IconButton(
+              onPressed: () => _confirmDelete(context),
+              icon: Icon(Icons.delete),
+            ),
         ],
       ),
       body: _buildContents(),
@@ -137,30 +138,28 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                 child: _buildForm(),
               ),
             ),
-            if (widget.note != null) ...[
-              SizedBox(height: 16.0),
-              Container(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => _confirmDelete(context),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0),
-                    child: Text(
-                      AppLocalizations.of(context).deleteNote,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24.0,
-                      ),
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.indigo,
+            SizedBox(height: 16.0),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _submit,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Text(
+                    AppLocalizations.of(context).saveNote,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
                     ),
                   ),
                 ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Colors.indigo,
+                  ),
+                ),
               ),
-            ],
+            ),
           ],
         ),
       ),

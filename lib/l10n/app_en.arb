@@ -45,6 +45,7 @@
     "editFlashcard": "Edit Flashcard",
     "createNewNote": "Create new Note",
     "editNote": "Edit Note",
+    "saveNote": "Save Note",
     "question": "Question",
     "questionMustNotBeEmpty": "Question must not be empty",
     "answer": "Answer",

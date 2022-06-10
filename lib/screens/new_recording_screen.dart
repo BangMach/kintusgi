@@ -15,6 +15,7 @@ class NewRecordingScreen extends StatefulWidget {
 
 class _NewRecordingScreenState extends State<NewRecordingScreen> {
   SpeechRecognition _speechRecognition;
+
   bool _hasError = false;
   bool _isAvailable = false; // if we are available to interact with it
   bool _isListening = false; // is the mircophone being used
@@ -110,12 +111,12 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
                         : null,
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 15.0,
+                        vertical: 15.0,
+                        horizontal: 10.0,
                       ),
                       child: Icon(
                         Icons.cancel,
-                        size: 30.0,
+                        size: 28.0,
                       ),
                     ),
                   ),
@@ -123,25 +124,26 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        _hasError ? Colors.grey : Colors.indigo,
+                        (_isAvailable && !_isListening)
+                            ? Colors.indigo
+                            : Colors.grey,
                       ),
                     ),
-                    onPressed: _hasError
-                        ? null
-                        : () {
-                            if (_isAvailable && !_isListening)
-                              _speechRecognition.listen(locale: "en_US").then(
-                                    (result) => print('$result'),
-                                  );
-                          },
+                    onPressed: (_isAvailable && !_isListening)
+                        ? () {
+                            _speechRecognition.listen(locale: "en_US").then(
+                                  (result) => print('$result'),
+                                );
+                          }
+                        : null,
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         vertical: 15.0,
-                        horizontal: 25.0,
+                        horizontal: 20.0,
                       ),
                       child: Icon(
                         Icons.mic,
-                        size: 30.0,
+                        size: 40.0,
                       ),
                     ),
                   ),
@@ -161,12 +163,12 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
                         : null,
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 15.0,
+                        vertical: 15.0,
+                        horizontal: 10.0,
                       ),
                       child: Icon(
                         Icons.stop,
-                        size: 30.0,
+                        size: 28.0,
                       ),
                     ),
                   ),
@@ -185,11 +187,12 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
       _isAvailable = result;
     });
 
-    if (!result) {
+    if (!result && (resultText == null || resultText.isEmpty)) {
       if (_hasError) return;
       await _speechRecognition.stop();
       setState(() {
         _hasError = true;
+        _isListening = false;
       });
       await showExceptionAlertDialog(
         context,
@@ -218,6 +221,10 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
 
     _speechRecognition.setRecognitionCompleteHandler(
       () {
+        _speechRecognition.stop();
+        setState(() => _isListening = false);
+        if (resultText == null || resultText.isEmpty) return;
+
         final resourceManager = Provider.of<ResourceManager>(context);
         final newNote = Note(
           id: resourceManager.getNextNoteId(),
@@ -225,9 +232,6 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
           content: resultText,
           createdAt: DateTime.now(),
         );
-
-        setState(() => _isListening = false);
-        _speechRecognition.stop();
 
         Navigator.of(context).push(
           CupertinoPageRoute(
