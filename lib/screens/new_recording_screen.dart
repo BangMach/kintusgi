@@ -212,7 +212,7 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
 
     _speechRecognition.setRecognitionResultHandler(
       (String speech) async => setState(
-        () => resultText += ' ' + speech,
+        () => resultText = speech,
       ),
     );
 
@@ -229,13 +229,17 @@ class _NewRecordingScreenState extends State<NewRecordingScreen> {
         setState(() => _isListening = false);
         _speechRecognition.stop();
 
-        CupertinoPageRoute(
-          builder: (context) => EditNoteScreen(
-            note: newNote,
-            resourceManager: resourceManager,
-            onDelete: () {},
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) => EditNoteScreen(
+              note: newNote,
+              resourceManager: resourceManager,
+              onDelete: () {},
+            ),
           ),
         );
+
+        resultText = "";
       },
     );
 
